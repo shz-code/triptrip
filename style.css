@@ -921,3 +921,126 @@ nav.navbar-white .fa-solid{
         margin: 40px 0;
     }
 }
+
+/* ============= Registration ================== */
+.registration-header{
+    position: relative;
+    background: linear-gradient(transparent,rgb(255, 255, 255));
+}
+
+.registration-header .logo{
+    color: var(--text-secondary);
+}
+.registration-header::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.644),rgba(0, 0, 0, 0.658)),
+    url("https://images.pexels.com/photos/5538603/pexels-photo-5538603.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")no-repeat center center/cover;
+    z-index: -1;    
+}
+.registration .from-box {
+    width: 100%;
+    max-width: 550px;
+    margin: 50px auto 0;
+    padding: 50px 60px 70px;
+    text-align: center;
+}
+
+.registration .from-box h1 {
+    font-size: 30px;
+    margin-bottom: 60px;
+    color: var(--primary-color);
+    position: relative;
+}
+
+.registration .from-box h1::after {
+    content: '';
+    width: 50px;
+    height: 4px;
+    border-radius: 3px;
+    background: var(--primary-color);
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.registration .input-field {
+    background: #eaeaea;
+    margin: 15px 0;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    max-height: 65px;
+    transition: max-height 0.5s;
+    overflow: hidden;
+}
+
+.registration input {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    padding: 18px 15px;
+}
+
+.registration .input-field i {
+    margin-left: 15px;
+    color: #999;
+}
+
+.registration form p {
+    text-align: left;
+    font-size: 13px;
+}
+
+.registration form p a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+.registration .btn-field {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.registration .btn-field button {
+    flex-basis: 48%;
+    background: var(--primary-color);
+    color: #fff;
+    height: 40px;
+    border-radius: 20px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.registration .input-group {
+    height: 250px;
+}
+
+.registration .btn-field button.disable {
+    color: var(--text-secondary);
+    background: #555;
+}
+
+/* =============small screen divices for house ditails page================== */
+@media only screen and (max-width:700px){
+    .registration .from-box {
+        padding: 100px 20px 70px;
+    }
+    .registration .btn-field {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        row-gap: 1rem;
+    }
+    .registration .btn-field button {
+        padding: 10px 0;
+    }
+}
