@@ -323,6 +323,7 @@ a{
     cursor: pointer;
     font-size: 3rem;
     margin-left: 10px;
+    font-weight: normal;
 }
 
 .footer a {
@@ -522,20 +523,42 @@ nav.navbar-white .fa-solid{
 .list-container{
     margin-top: 50px;
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
+}
+.search-listing{
+    display: flex;
+    position: relative;
+    max-width: 500px;
+    width: 100%;
+    margin: 100px auto 0;
+}
+.search-listing input{
+    width: 100%;
+    margin: auto;
+    border-radius: 2rem;
+    border: none;
+    border-bottom: 2px solid transparent;
+    background: #9999991f;
+    padding: 20px 15px;
+    transition: 0.3s ease;
+}
+.search-listing input:focus{
+    border-bottom: 2px solid var(--primary-color);
+    outline: none;
+}
+.search-listing button{
+    position: absolute;
+    top: 3px;
+    right: 2px;
+    background: var(--primary-color);
+    border: none;
+    outline: none;
+    height: 55px;
+    width: 55px;
+    border-radius: 50%;
 }
 .left-col{
     flex-basis: 70%;
-}
-.right-col{
-    position: relative;
-    flex-basis: 25%;
-}
-
-.sidebar{
-    position: sticky;
-    top: 20px;
 }
 .left-col h1{
     color: #333;
@@ -548,6 +571,16 @@ nav.navbar-white .fa-solid{
     flex-wrap: wrap;
     padding: 30px 0;
     border-top: 1px solid #ccc;
+}
+
+.house .btn{
+    display: inline-block;
+    text-decoration: none;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: var(--primary-color);
+    color: var(--text-secondary);
+    border-radius: 20px;
 }
 .house-img{
     flex-basis: 40%;
@@ -572,6 +605,7 @@ nav.navbar-white .fa-solid{
     margin:10px 1px;
 }
 .house-price{
+    margin-top: 20px;
     text-align: right;
 }
 .house-price h4{
@@ -580,6 +614,16 @@ nav.navbar-white .fa-solid{
 .house-price h4 span{
     font-size: 16px;
     font-weight: 500;
+}
+.right-col{
+    position: relative;
+    flex-basis: 25%;
+}
+
+.sidebar{
+    position: sticky;
+    top: 20px;
+    border-radius: 0.5rem;
 }
 .sidebar{
     border: 1px solid #999;
@@ -607,10 +651,12 @@ nav.navbar-white .fa-solid{
     cursor: pointer;
 }
 .sidebar-link{
+    border-top: 1px solid #555;
     text-align: right;
-    margin: 20px 0;
 }
 .sidebar-link a{
+    display: inline-block;
+    margin-top: 10px;
     text-decoration: none;
 }
 .pagination{
@@ -641,10 +687,16 @@ nav.navbar-white .fa-solid{
 }
 
 /* =============small screen divices for listing page================== */
-@media only screen and (max-width:700px){
-    .list-container{
-        margin-top: 150px;
+@media only screen and (max-width:900px){
+    .search-listing{
+        margin-top: 6rem;
     }
+    .list-container{
+        flex-direction: column-reverse;
+        row-gap: 2rem;
+    }
+}
+@media only screen and (max-width:700px){
     .left-col,.right-col, .house-info,.house-img{
         flex-basis: 100%;
     }
