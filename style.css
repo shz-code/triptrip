@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Comforter+Brush&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 :root{
     --primary-color: #FF5361;
     --text-primary: #000;
@@ -108,17 +108,17 @@ a{
 
 .search-bar form button {
     background: var(--primary-color);
+    border: 0;
     width: 55px;
     height: 55px;
     border-radius: 50%;
-    border: 0;
     outline: none;
     cursor: pointer;
 }
 
-.search-bar form button img {
-    width: 15px;
-    margin-top: 7px;
+.search-bar form button i {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
 }
 
 .location-input {
@@ -343,6 +343,9 @@ a{
 
 .footer {
     padding-bottom: 15px;
+}
+.footer i{
+    cursor: pointer;
 }
 
 .active {
@@ -620,6 +623,11 @@ nav.navbar-white .fa-solid{
     flex-basis: 25%;
 }
 
+.right-col i{
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+}
+
 .sidebar{
     position: sticky;
     top: 20px;
@@ -665,9 +673,8 @@ nav.navbar-white .fa-solid{
     justify-content: center;
     margin: 40px 0;
 }
-.pagination img{
-    width: 15px;
-    margin: 10px 20px;
+.pagination i{
+    font-size: 1.3rem;
 }
 .right-arraw{
     transform:rotate(180deg);
