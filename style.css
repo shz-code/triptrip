@@ -325,6 +325,9 @@ a{
     margin-left: 10px;
     font-weight: normal;
 }
+.brand-inline{
+    font-size: 1.5rem;
+}
 
 .footer a {
     text-decoration: none;
@@ -568,7 +571,7 @@ nav.navbar-white .fa-solid{
     font-weight: 600;
     margin-bottom: 30px;
 }
-.house{
+.package{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -576,7 +579,7 @@ nav.navbar-white .fa-solid{
     border-top: 1px solid #ccc;
 }
 
-.house .btn{
+.package .btn{
     display: inline-block;
     text-decoration: none;
     margin-top: 20px;
@@ -585,36 +588,39 @@ nav.navbar-white .fa-solid{
     color: var(--text-secondary);
     border-radius: 20px;
 }
-.house-img{
+.package-img{
     flex-basis: 40%;
 }
-.house-info{
+.package-info{
     flex-basis: 58%;
     color: #555;
 }
-.house-img img{
+.package-img img{
     width:100%;
     border-radius: 12px;
 }
-.house-info h3{
+.package-info h3{
     font-weight: 600;
     color: #333;
     font-size: 22px;
     margin: 4px 0;
 }
-.house-info i{
+.hotel-chekins{
+    margin-top: 10px;
+}
+.package-info i{
     color: var(--primary-color);
     font-size: 18px;
     margin:10px 1px;
 }
-.house-price{
+.package-price{
     margin-top: 20px;
     text-align: right;
 }
-.house-price h4{
+.package-price h4{
     font-size: 20px;
 }
-.house-price h4 span{
+.package-price h4 span{
     font-size: 16px;
     font-weight: 500;
 }
@@ -704,16 +710,16 @@ nav.navbar-white .fa-solid{
     }
 }
 @media only screen and (max-width:700px){
-    .left-col,.right-col, .house-info,.house-img{
+    .left-col,.right-col, .package-info,.package-img{
         flex-basis: 100%;
     }
     .left-col h1{
         font-size: 22px;
     }
-    .house-info h3{
+    .package-info h3{
         font-size: 18px;
     }
-    .house-info i{
+    .package-info i{
         font-size: 16px;
     }
     .pagination span{
@@ -726,26 +732,26 @@ nav.navbar-white .fa-solid{
     
 }
 
-/* ==================house-ditails page========== */
-.house-ditails{
+/* ==================package-details page========== */
+.package-details{
     padding: 0 12%;
 }
-.house-title{
+.package-title{
     margin-top: 50px;
 }
-.house-title h1{
+.package-title h1{
     font-weight: 600;
 }
-.house-title .row{
+.package-title .row{
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     margin: 10px 0;
 }
-.house-title span{
+.package-title span{
     margin: 0 20px;
 }
-.house-title i{
+.package-title i{
     color: var(--primary-color);
     font-size: 14px;
 }
@@ -786,18 +792,28 @@ nav.navbar-white .fa-solid{
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
+    column-gap: 4rem;
     padding: 10px 50px;
 }
 .check-form label{
     display: block;
+    font-size: 1.3rem;
+    text-align: center;
 }
 .check-form div{
     padding: 20px;
+    max-width: 300px;
+    width: 100%;
 }
-.check-form input{
+.check-form #guest-select{
     background: transparent;
+    width: 100%;
     border: 0;
+    border-bottom: 2px solid var(--primary-color);
     outline: none;
+    font-size: 1.1rem;
+    text-align: center;
 }
 .check-form button{
     background: var(--primary-color);
@@ -808,15 +824,13 @@ nav.navbar-white .fa-solid{
     width: 350px;
     border-radius: 8px;
     font-size: 16px;
+    cursor: pointer;
 }
-.guest-field{
-    flex: 1;
-}
-.ditails-list{
+.details-list{
     list-style: none;
     margin: 50px 0;
 }
-.ditails-list li{
+.details-list li{
     margin-left: 50px;
     font-size: 20px;
     font-weight: 500;
@@ -824,17 +838,17 @@ nav.navbar-white .fa-solid{
     color: #555;
     position: relative;
 }
-.ditails-list li span{
+.details-list li span{
     display: block;
     font-weight: 400;
     font-size: 16px;
 }
-.ditails-list li i{
+.details-list li i{
     position: absolute;
     top: 5px;
     left: -40px;
 }
-.home-desc{
+.package-desc{
     max-width: 700px;
     margin-bottom: 50px;
 }
@@ -881,9 +895,9 @@ nav.navbar-white .fa-solid{
 }
 
 
-/* =============small screen divices for house ditails page================== */
+/* =============small screen divices for package ditails page================== */
 @media only screen and (max-width:700px){
-    .house-ditails{
+    .package-details{
         margin-top:150px;
     }
     .row p{
@@ -1036,7 +1050,7 @@ nav.navbar-white .fa-solid{
     background: #555;
 }
 
-/* =============small screen divices for house ditails page================== */
+/* =============small screen divices for package ditails page================== */
 @media only screen and (max-width:700px){
     .registration .from-box {
         padding: 100px 20px 70px;
