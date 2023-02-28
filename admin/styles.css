@@ -71,8 +71,8 @@ td {
     row-gap: 2rem;
 }
 
-.side-menu .brand-name {
-    margin-top: 20px;
+.brand-name {
+    margin: 20px 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -82,24 +82,32 @@ td {
     display: inline-block;
     text-decoration: none;
     cursor: pointer;
-    font-size: 4vw;
-    color: var(--text-secondary);
+    font-size: 2rem;
+    color: var(--text-primaryy);
 }
 ul{
+    margin-top: 5rem;
     display: grid;
+    width: 100%;
     row-gap: 1rem;
 }
-.side-menu li {
+.side-menu li a{
+    text-align: center;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
     font-size: 1.2rem;
     padding: 10px 40px;
     color: white;
-    display: flex;
-    align-items: center;
     cursor: pointer;
-    column-gap: 1rem;
+}
+.side-menu li.active a {
+    color: var(--primary-color);
+    background: white;
 }
 
-.side-menu li:hover {
+.side-menu li a:hover {
     background: white;
     color: var(--primary-color);
 }
@@ -128,21 +136,6 @@ ul{
     width: 90%;
     display: flex;
     align-items: center;
-}
-.container .header .nav .user {
-    flex: 1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.container .header .nav .user .img-case i {
-    position: relative;
-    background: var(--primary-color);
-    padding: 15px;
-    color: var(--text-secondary);
-    border-radius: 50%;
-    font-size: 1.5rem;
 }
 
 .container .content {
@@ -182,12 +175,12 @@ ul{
 }
 
 .container .content .content-2 .recent-payments {
-    min-height: 50vh;
     flex: 5;
     background: white;
     margin: 0 25px 25px 25px;
     display: flex;
     flex-direction: column;
+    border-radius: 0.5rem;
 }
 .container .content .content-2 .recent-payments table td{
     text-align: center;
@@ -196,10 +189,10 @@ ul{
 .container .content .content-2 .new-users {
     flex: 2;
     background: white;
-    min-height: 50vh;
     margin: 0 25px;
     display: flex;
     flex-direction: column;
+    border-radius: 0.5rem;
 }
 
 .container .content .content-2 .new-users table td,th{
@@ -210,20 +203,16 @@ ul{
     cursor: pointer;
 }
 @media screen and (max-width: 1250px) {
-    .side-menu li span {
+    .side-menu li a span {
         display: none;
     }
 
     .side-menu {
         align-items: center;
     }
-
-    .side-menu li:hover {
-        background: var(--text-secondary);
-        padding: 8px 38px;
-        border: 2px solid white;
-        width: 100%;
-        color: var(--primary-color);
+    .side-menu li a{
+        justify-content: center;
+        padding: 10px 0;
     }
 }
 
