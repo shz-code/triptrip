@@ -90,10 +90,12 @@ a{
     text-align: center;
 }
 
-.hero form{
+.search-bar form{
     width: 60%;
     display: flex;
     justify-content: center;
+    align-items: center;
+    column-gap: 2rem;
     margin: 30px auto;
     padding: 6px 10px 6px 30px;
     border-radius: 2rem;
@@ -104,8 +106,14 @@ a{
     display: block;
     border: 0;
     outline: none;
+    border-bottom: 1px solid var(--primary-color)!important;
 }
-
+.search-bar form .location-input {
+    flex: 1;
+}
+.search-bar form .location-input input{
+    width: 100%;
+}
 .search-bar form button {
     background: var(--primary-color);
     border: 0;
@@ -119,10 +127,6 @@ a{
 .search-bar form button i {
     font-size: 1.1rem;
     color: var(--text-secondary);
-}
-
-.location-input {
-    flex: 1;
 }
 
 .search-bar form label {
@@ -578,6 +582,9 @@ nav.navbar-white .fa-solid{
     padding: 30px 0;
     border-top: 1px solid #ccc;
 }
+.package:last-child{
+    border-bottom: 1px solid #ccc;
+}
 
 .package .btn{
     display: inline-block;
@@ -627,6 +634,10 @@ nav.navbar-white .fa-solid{
 .right-col{
     position: relative;
     flex-basis: 25%;
+}
+
+.right-col button{
+    cursor: pointer;
 }
 
 .right-col i{
@@ -971,6 +982,23 @@ nav.navbar-white .fa-solid{
     text-align: center;
 }
 
+.notification{
+    height: 50px;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+}
+.notification .success{
+    background: #198754;
+    border-radius: 0.5rem;
+    padding: 2rem;
+}
+.notification .danger{
+    border-radius: 0.5rem;
+    padding: 0.6rem;
+    background: #d41a2d;
+  
+}
+
 .registration .from-box h1 {
     font-size: 30px;
     margin-bottom: 60px;
@@ -999,6 +1027,7 @@ nav.navbar-white .fa-solid{
     max-height: 65px;
     transition: max-height 0.5s;
     overflow: hidden;
+    border-radius: 0.5rem;
 }
 
 .registration input {
@@ -1009,9 +1038,17 @@ nav.navbar-white .fa-solid{
     padding: 18px 15px;
 }
 
+.registration .input-field{
+    position: relative;
+}
 .registration .input-field i {
     margin-left: 15px;
     color: #999;
+}
+.registration .input-field .show_password {
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
 }
 
 .registration form p {

@@ -4,6 +4,7 @@
 :root{
     --primary-color: #FF5361;
     --text-primary: #000;
+    --text-shade: #999;
     --text-secondary: #fff;
 }
 * {
@@ -32,7 +33,13 @@ h2 {
 }
 
 h3 {
-    color: #999;
+    color: var(--text-shade);
+}
+
+img{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
 }
 
 .btn {
@@ -48,7 +55,7 @@ h3 {
     align-items: center;
     justify-content: space-around;
     padding: 15px 10px;
-    border-bottom: 2px solid #999;
+    border-bottom: 2px solid var(--text-shade);
 }
 
 table {
@@ -152,8 +159,10 @@ ul{
 }
 
 .container .content .cards .card {
-    width: 250px;
     height: 150px;
+    max-width: 350px;
+    width: 100%;
+    padding: 20px;
     background: white;
     margin: 20px 10px;
     display: flex;
@@ -161,17 +170,21 @@ ul{
     justify-content: space-around;
     border-radius: 0.5rem;
 }
+.container .content .cards .card.add-package{
+    background: var(--primary-color);
+    color: var(--text-secondary);
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.329);
+    cursor: pointer;
+}
 
 .container .content .cards .card i{
     font-size: 2rem;
 }
 
-.container .content .content-2 {
-    min-height: 60vh;
+.container .content .content-2.dashboard {
     display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 .container .content .content-2 .recent-payments {
@@ -202,6 +215,58 @@ ul{
 .container .content .content-2 .new-users table td{
     cursor: pointer;
 }
+.container .content .content-2 .packages-container{
+    display: grid;
+    row-gap: 1rem;
+    margin: 1rem 0;
+}
+.container .content .content-2 .packages-container h2{
+    text-align: center;
+}
+.container .content .content-2 .packages{
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 1rem;
+    width: 80%;
+    margin: auto;
+}
+
+
+.container .content .content-2 .packages .package{
+    background: var(--text-secondary);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    display: flex;
+    column-gap: 1rem;
+    align-items: center;
+}
+.container .content .content-2 .packages .package .img-box{
+    max-width: 300px;
+    width: 100%;
+    border-radius: 0.5rem;
+}
+.container .content .content-2 .packages .package .img-box img{
+    border-radius: 0.5rem;
+}
+.container .content .content-2 .packages .package .details{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 1rem;
+}
+.container .content .content-2 .packages .package .details .info{
+    font-weight: bold;
+    display: grid;
+    row-gap: 0.5rem;
+}
+.container .content .content-2 .packages .package .details .info .icons{
+    display: flex;
+    column-gap: 10px;
+}
+.container .content .content-2 .packages .package .details .info .icons i{
+    color: var(--text-shade);
+}
 @media screen and (max-width: 1250px) {
     .side-menu li a span {
         display: none;
@@ -213,6 +278,14 @@ ul{
     .side-menu li a{
         justify-content: center;
         padding: 10px 0;
+    }
+    .container .content .content-2 .packages .package{
+        display: grid;
+        row-gap: 1rem;
+    }
+    .container .content .content-2 .packages .package .img-box{
+        max-width: 500px;
+        margin: auto;
     }
 }
 
@@ -233,5 +306,11 @@ ul{
     .container .content .content-2 .recent-payments table th:nth-child(2),
     .container .content .content-2 .recent-payments table td:nth-child(2) {
         display: none;
+    }
+    .container .content .content-2 .packages .package .details{
+       width: 100%;
+       display: grid;
+       row-gap: 1rem;
+       justify-content: center;
     }
 }

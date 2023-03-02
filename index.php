@@ -1,47 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Triptrip</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
+<?php include("./components/_head.php") ?>
 
 <body>
     <div class="header">
         <nav id="navBar">
-        <a href="index.html" class="logo"> triptrip </a>
+            <a href="./index.php" class="logo"> triptrip </a>
             <ul class="nav-links">
-                <li><a href="index.html" class="active">Popular Places</a></li>
-                <li><a href="listing.html">All packages</a></li>
+                <li><a href="./index.php" class="active">Popular Places</a></li>
+                <li><a href="./listing.php">All packages</a></li>
             </ul>
-            <a href="./registration.html" class="register-btn">Register Now</a>
+            <a href="./registration.php" class="register-btn">Register Now</a>
             <i class="fa-solid fa-bars" onclick="togglebtn()"></i>
         </nav>
         <div class="container hero">
             <h1>Travel Bangladesh Like Never Before</h1>
             <div class="search-bar">
-                <form>
+                <form method="post" id="search_form">
                     <div class="location-input">
                         <label>Location</label>
-                        <input type="text" placeholder="Where are you going?">
-                    </div>
-                    <div>
-                        <label>Check In</label>
-                        <input type="text" placeholder="Add Date">
-                    </div>
-                    <div>
-                        <label>Check Out</label>
-                        <input type="text" placeholder="Add Date">
+                        <input required type="text" id="location" placeholder="Where are you going?">
                     </div>
                     <div>
                         <label>Guest</label>
-                        <input type="text" placeholder="Add Guest">
+                        <input required type="text" id="guest" placeholder="Add Guest">
                     </div>
                     <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
@@ -62,14 +44,16 @@
                 </span>
             </div>
             <div>
-                <img src="https://4.bp.blogspot.com/-mdhiT5vtA_A/TyZ6nLh1RDI/AAAAAAAAAA0/wPKDcNBcUTM/s1600/sundarban+forest3.jpg">
+                <img
+                    src="https://4.bp.blogspot.com/-mdhiT5vtA_A/TyZ6nLh1RDI/AAAAAAAAAA0/wPKDcNBcUTM/s1600/sundarban+forest3.jpg">
                 <span>
                     <h3>Sundarbans</h3>
                     <p>Starts @ 3000 Taka</p>
                 </span>
             </div>
             <div>
-                <img src="https://th.bing.com/th/id/R.25148796f3a95244b27a261256084c4b?rik=KmmFNVd97%2bjhog&pid=ImgRaw&r=0">
+                <img
+                    src="https://th.bing.com/th/id/R.25148796f3a95244b27a261256084c4b?rik=KmmFNVd97%2bjhog&pid=ImgRaw&r=0">
                 <span>
                     <h3>Bandarban</h3>
                     <p>Starts @ 3500 Taka</p>
@@ -119,8 +103,10 @@
         <h2 class="sub-title">Travellers Stories</h2>
         <div class="stories">
             <div class="travellers-card">
-                <img src="https://th.bing.com/th/id/R.4333832c4bf1ac8a33b7de33edf931f6?rik=L5WmyYEBGCsuLQ&riu=http%3a%2f%2fblogs.ubc.ca%2ftheglobalspectrum%2ffiles%2f2015%2f11%2flets-travel-to-bangladesh-with-simon-urwin-featured.jpg&ehk=xhl0gLFAo9b9whN8uY4zQflUaC7EkHLpJE0XWQUVf3I%3d&risl=&pid=ImgRaw&r=0">
-                <p><a href="https://awaywiththesteiners.com/travel-in-bangladesh/">Travelling in Bangladesh Starter</a></p>
+                <img
+                    src="https://th.bing.com/th/id/R.4333832c4bf1ac8a33b7de33edf931f6?rik=L5WmyYEBGCsuLQ&riu=http%3a%2f%2fblogs.ubc.ca%2ftheglobalspectrum%2ffiles%2f2015%2f11%2flets-travel-to-bangladesh-with-simon-urwin-featured.jpg&ehk=xhl0gLFAo9b9whN8uY4zQflUaC7EkHLpJE0XWQUVf3I%3d&risl=&pid=ImgRaw&r=0">
+                <p><a href="https://awaywiththesteiners.com/travel-in-bangladesh/">Travelling in Bangladesh Starter</a>
+                </p>
             </div>
             <div class="travellers-card">
                 <img src="https://th.bing.com/th/id/OIP.n57Nzsy-0WkE-Uxc0ZKSjQHaFj?pid=ImgDet&rs=1">
@@ -132,11 +118,14 @@
             </div>
         </div>
         <a href="https://nijhoom.com/bangladesh-travel-blog/" class="Start-btn">Go to travel blog</a>
-        
+
         <!-- ===============footer================ -->
         <div class="about-msg">
             <h2>About <span class="brand">triptrip</span></h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae eius cumque, provident quaerat aspernatur architecto totam ea corrupti esse repudiandae omnis asperiores voluptas! Error libero nisi adipisci rem, molestiae et iste exercitationem asperiores esse eum facere ipsa voluptatem odit omnis iusto dolor atque non eos maiores. Libero dolor fuga possimus.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae eius cumque, provident quaerat aspernatur
+                architecto totam ea corrupti esse repudiandae omnis asperiores voluptas! Error libero nisi adipisci rem,
+                molestiae et iste exercitationem asperiores esse eum facere ipsa voluptatem odit omnis iusto dolor atque
+                non eos maiores. Libero dolor fuga possimus.</p>
         </div>
         <div class="footer">
             <a href="https://www.facebook.com/akibul.hasan.13"><i class="fa-brands fa-facebook-f"></i></a>
@@ -148,15 +137,15 @@
             <p>&copy; All rights reserved.</p>
         </div>
     </div>
-    <!-- ===================menu for js================= -->
-
+    <?php include("./components/_js.php") ?>
     <script>
-        var navBar = document.getElementById("navBar")
-        function  togglebtn(){
-            navBar.classList.toggle("hidemenu");
-        }
+        $("#search_form").submit(e => {
+            e.preventDefault();
+            var loc = $("#location").val();
+            var guest = $("#guest").val();
+            window.location = `http://localhost/triptrip/listing.php?loc=${loc}&g=${guest}`;
+        })
     </script>
-
 </body>
 
 </html>

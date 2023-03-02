@@ -1,45 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Triptrip - Registration</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
+<?php include("./components/_head.php") ?>
 
 <body>
     <div class="registration-header">
         <nav id="navBar">
-            <a href="index.html" class="logo"> triptrip </a>
+            <a href="./index.php" class="logo"> triptrip </a>
             <ul class="nav-links">
-                <li><a href="index.html">Popular Places</a></li>
-                <li><a href="listing.html">All packages</a></li>
+                <li><a href="./index.php">Popular Places</a></li>
+                <li><a href="./listing.php">All packages</a></li>
             </ul>
             <i class="fa-solid fa-bars" onclick="togglebtn()"></i>
         </nav>
         <div class="registration">
             <div class="from-box">
-                <h1 id="title">Sing Up</h1>
+                <h1 id="title">Sign Up</h1>
+                <div class="notification">
+                    
+                </div>
                 <form>
                     <div class="input-group">
-                        <div class="input-field" id="namrField">
+                        <div class="input-field" id="nameField">
                             <i class="fa-solid fa-user"></i>
-                            <input type="text" placeholder="Name">
+                            <input required type="text" placeholder="Username" name="username" id="username">
                         </div>
                         <div class="input-field">
                             <i class="fa-solid fa-envelope"></i>
-                            <input type="email" placeholder="Email">
+                            <input required type="email" placeholder="Email" name="email" id="email" >
                         </div>
                         <div class="input-field">
                             <i class="fa-solid fa-lock"></i>
-                            <input type="password" placeholder="Password">
+                            <input required type="password" placeholder="Password" name="password" id="password" >
+                            <i class="fa-solid fa-eye show_password"></i>
                         </div>
-                        <p>Forget password <a href="#">Click Here!</a></p>
+                        <p>Forgot password <a href="#">Click Here!</a></p>
                     </div>
                     <div class="btn-field">
                         <button type="button" id="signupBtn">Sign up</button>
@@ -69,30 +64,8 @@
         </div>
     </div>
 
-    <script>
-        var navBar = document.getElementById("navBar")
-        function togglebtn() {
-            navBar.classList.toggle("hidemenu");
-        }
-        let signupBtn = document.getElementById("signupBtn");
-        let signinBtn = document.getElementById("signinBtn");
-        let namrField = document.getElementById("namrField");
-        let title = document.getElementById("title");
-
-        signinBtn.onclick = function () {
-            namrField.style.maxHeight = "0";
-            title.innerHTML = "Sign In";
-            signupBtn.classList.add("disable");
-            signinBtn.classList.remove("disable");
-        }
-        signupBtn.onclick = function () {
-            namrField.style.maxHeight = "60px";
-            title.innerHTML = "Sign Up";
-            signupBtn.classList.remove("disable");
-            signinBtn.classList.add("disable");
-        }
-    </script>
-
+    <?php include("./components/_js.php") ?>
+    <script src="./assets/js/registration.js"></script>
 </body>
 
 </html>

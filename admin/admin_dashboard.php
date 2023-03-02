@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./assets/css/styles.css">
     <title>Triptrip - Admin Panel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
     integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
@@ -15,9 +15,9 @@
 <body>
     <div class="side-menu">
         <ul>
-            <li class="active"><a href="./admin_dashboard.html"><i class="fa-solid fa-chart-line"></i><span>Dashboard</span></a></li>
-            <li><a href="./users.html"><i class="fa-solid fa-users"></i><span>Users</span></a></li>
-            <li><a href="./packages.html"><i class="fa-solid fa-cube"></i><span>Packages</span></a> </li>
+            <li class="active"><a href="./admin_dashboard.php"><i class="fa-solid fa-chart-line"></i><span>Dashboard</span></a></li>
+            <li><a href="./users.php"><i class="fa-solid fa-users"></i><span>Users</span></a></li>
+            <li><a href="./packages.php"><i class="fa-solid fa-cube"></i><span>Packages</span></a> </li>
             <li><a href=""><i class="fa-solid fa-money-bill-trend-up"></i><span>Saes</span></a> </li>
         </ul>
     </div>
@@ -25,7 +25,7 @@
         <div class="header">
             <div class="nav">
                 <div class="brand-name">
-                    <a href="../index.html" class="logo">triptrip</a>
+                    <a href="../index.php" class="logo">triptrip</a>
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@
                     </div>
                 </div>
             </div>
-            <div class="content-2">
+            <div class="content-2 dashboard">
                 <div class="recent-payments">
                     <div class="title">
                         <h2>Recent Payments</h2>
@@ -113,7 +113,7 @@
                 <div class="new-users">
                     <div class="title">
                         <h2>New Users</h2>
-                        <a href="./users.html" class="btn">View All</a>
+                        <a href="./users.php" class="btn">View All</a>
                     </div>
                     <table>
                         <tr>

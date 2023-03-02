@@ -1,23 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Triptrip - Details</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
+<?php include("./components/_head.php") ?>
 
 <body>
     <nav id="navBar" class="navbar-white">
-        <a href="index.html" class="logo"> triptrip </a>
+        <a href="./index.php" class="logo"> triptrip </a>
         <ul class="nav-links">
-            <li><a href="index.html">Popular Places</a></li>
-            <li><a href="listing.html">All packages</a></li>
+            <li><a href="./index.php">Popular Places</a></li>
+            <li><a href="./listing.php">All packages</a></li>
         </ul>
         <a href="./registration.html" class="register-btn">Register Now</a>
         <i class="fa-solid fa-bars" onclick="togglebtn()"></i>
@@ -40,11 +31,11 @@
             </div>
         </div>
         <div class="gallery">
-            <div class="gallery-img-1"><img src="images/house-1.png"></div>
-            <div><img src="images/house-2.png"></div>
-            <div> <img src="images/house-3.png"></div>
-            <div><img src="images/house-4.png"></div>
-            <div> <img src="images/house-5.png"></div>
+            <div class="gallery-img-1"><img src="./assets/images/house-1.png"></div>
+            <div><img src="./assets/images/house-2.png"></div>
+            <div> <img src="./assets/images/house-3.png"></div>
+            <div><img src="./assets/images/house-4.png"></div>
+            <div> <img src="./assets/images/house-5.png"></div>
         </div>
         <div class="small-ditails">
             <p>2,4 guests</p>
@@ -66,10 +57,10 @@
                 </form>
                 <h2>The packages comes with <i class="fa-solid fa-chevron-down"></i></h2>
                 <ul class="details-list">
-                    <li><i class="fa-solid fa-hotel"></i></i>Hotel <br>
+                    <li><i class="fa-solid fa-hotel"></i>Hotel <br>
                         <span> Hotel is<strong class="brand-inline brand">triptrip </strong> verified with excellent customer service. </span>
                     </li>
-                    <li><i class="fa-solid fa-bus-simple"></i></i>Transport <br>
+                    <li><i class="fa-solid fa-bus-simple"></i>Transport <br>
                         <span>Transportation includes bus tickets from and to Cox's Bazar.</span>
                     </li>
                     <li><i class="fa-solid fa-utensils"></i>Food <br>
@@ -108,13 +99,7 @@
             <p>&copy; All rights reserved.</p>
         </div>
     </div>
-    <!-- =============js================ -->
-    <script>
-        var navBar = document.getElementById("navBar")
-        function togglebtn() {
-            navBar.classList.toggle("hidemenu");
-        }
-    </script>
+    <?php include("./components/_js.php") ?>
 
 </body>
 
