@@ -4,6 +4,7 @@
 <?php include('./components/_head.php') ?>
 
 <?php
+// error_reporting(0);
 if (isset($_GET["loc"]) && isset($_GET['g'])) {
     $location = ($_GET["loc"]);
     $guest = $_GET["g"];
@@ -20,7 +21,15 @@ if (isset($_GET["loc"]) && isset($_GET['g'])) {
             <li><a href='./index.php'>Popular Places</a></li>
             <li><a href='./listing.php' class='active'>All packages</a></li>
         </ul>
-        <a href='./registration.php' class='register-btn'>Register Now</a>
+        <?php
+            if (!isset($_SESSION))
+                session_start();
+            if (isset($_SESSION["logged_in"])) {
+                echo ' <a href="./services/_logout.php" class="register-btn">Logout</a>';
+            } else {
+                echo ' <a href="./registration.php" class="register-btn">Register Now</a>';
+            }
+            ?>
         <i class='fa-solid fa-bars' onclick='togglebtn()'></i>
     </nav>
 

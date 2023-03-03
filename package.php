@@ -10,7 +10,15 @@
             <li><a href="./index.php">Popular Places</a></li>
             <li><a href="./listing.php">All packages</a></li>
         </ul>
-        <a href="./registration.html" class="register-btn">Register Now</a>
+        <?php
+            if (!isset($_SESSION))
+                session_start();
+            if (isset($_SESSION["logged_in"])) {
+                echo ' <a href="./services/_logout.php" class="register-btn">Logout</a>';
+            } else {
+                echo ' <a href="./registration.php" class="register-btn">Register Now</a>';
+            }
+            ?>
         <i class="fa-solid fa-bars" onclick="togglebtn()"></i>
     </nav>
     <div class="package-details">

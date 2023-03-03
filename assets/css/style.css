@@ -990,7 +990,7 @@ nav.navbar-white .fa-solid{
 .notification .success{
     background: #198754;
     border-radius: 0.5rem;
-    padding: 2rem;
+    padding: 0.6rem;
 }
 .notification .danger{
     border-radius: 0.5rem;
@@ -1065,6 +1065,7 @@ nav.navbar-white .fa-solid{
     width: 100%;
     display: flex;
     justify-content: space-between;
+    transition: 0.3s ease;
 }
 
 .registration .btn-field button {
@@ -1077,6 +1078,8 @@ nav.navbar-white .fa-solid{
     outline: 0;
     cursor: pointer;
     transition: 0.5s;
+    margin: auto;
+    transition: 0.3s ease;
 }
 .registration .input-group {
     height: 250px;

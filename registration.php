@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include("./components/_head.php") ?>
+<?php include("./components/_head.php");
+if (!isset($_SESSION))
+    session_start();
+if (isset($_SESSION["logged_in"]))
+    echo '<script> location.href = "./index.php" </script>'; ?>
 
 <body>
     <div class="registration-header">
@@ -17,7 +21,7 @@
             <div class="from-box">
                 <h1 id="title">Sign Up</h1>
                 <div class="notification">
-                    
+
                 </div>
                 <form>
                     <div class="input-group">
@@ -27,11 +31,11 @@
                         </div>
                         <div class="input-field">
                             <i class="fa-solid fa-envelope"></i>
-                            <input required type="email" placeholder="Email" name="email" id="email" >
+                            <input required type="email" placeholder="Email" name="email" id="email">
                         </div>
                         <div class="input-field">
                             <i class="fa-solid fa-lock"></i>
-                            <input required type="password" placeholder="Password" name="password" id="password" >
+                            <input required type="password" placeholder="Password" name="password" id="password">
                             <i class="fa-solid fa-eye show_password"></i>
                         </div>
                         <p>Forgot password <a href="#">Click Here!</a></p>

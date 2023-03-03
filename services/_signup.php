@@ -20,26 +20,19 @@ if (isset($_POST['newUser']) && isset($_POST['username']) && isset($_POST['email
     $email = $_POST['email'];
     $pass = $_POST['pass'];
 
-    $db = new Query();
+    $auth = new Auth();
     
-    // Check if Username Exists
-    // $ck = "SELECT user_username FROM users WHERE user_username = '" . $username . "'";
-    // $res = $conn->query($ck);
-    // $res = $res->num_rows;
+    // Check if username exists 
+    if(!$auth->checkUserName($username))
+    {
+        die(header("HTTP/1.0 406 Username Exists"));
+    }
 
-    // if ($res > 0) {
-    //     die(header("HTTP/1.0 406 Username Exists"));
-    // }
-
-    // Check if Email Exists
-    // $ck = "SELECT user_email FROM users WHERE user_email = '" . $email . "'";
-    // $res = $conn->query($ck);
-    // $res = $res->num_rows;
-
-    // if ($res > 0) {
-    //     die(header("HTTP/1.0 406 Email Exists"));
-    // }
-
+    // Check if Email exists 
+    if(!$auth->checkEmail($email))
+    {
+        die(header("HTTP/1.0 406 Email Exists"));
+    }
 
     // Check for invalid characters in password
     if (!checkPass($pass)) {
@@ -49,13 +42,6 @@ if (isset($_POST['newUser']) && isset($_POST['username']) && isset($_POST['email
     // Paswword Encryption
     $pass = sha1($pass);
 
-    // $sql = "INSERT INTO users(user_username, user_email, user_pass) VALUES ('$username','$email','$pass')";
-
-    try {
-        $db->getPackagesCount();
-        echo json_encode("Done");
-    } catch (mysqli_sql_exception) {
-        die(header("HTTP/1.0 500 Internal Server Error"));
-    }
+    return json_encode($auth->createUser($username,$email,$pass));
 }
 ?>

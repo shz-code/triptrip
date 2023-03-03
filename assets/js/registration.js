@@ -36,14 +36,9 @@ $("#signinBtn").click((e) => {
         window.location.replace("./index.php");
       },
       error: (data) => {
-        data = JSON.parse(data);
-        console.log(data);
-        if (data.statusText === "User Not Found")
-          alert("danger", "No User Found Using This Email & Password.");
-        else if (data.statusText === "Forbidden")
-          alert("danger", "Check Your Email For Verification Mail.");
+        if (data.statusText === "User Not Found") alert("danger", "User Not Found");
         else alert("danger", "Error! Try Again Later.");
-        $("#user_submit_btn").html(`Login`);
+        // $("#user_submit_btn").html(`Login`);
         // btn.attr("disabled", false);
       },
     });
@@ -75,16 +70,21 @@ $("#signupBtn").click((e) => {
           pass: pass,
         },
         success: (data) => {
-          console.log(data);
+          if (data === "200")
+          {
+            alert("success", "Registration Successful. Please log in");
+            $("#nameField").css("max-height", "0px");
+            $("#title").html("Sign In");
+            $("#signupBtn").css("display","none");
+          }
         },
         error: (data) => {
-          if (data.statusText === "User Not Found")
-            alert("danger", "No User Found Using This Email & Password.");
-          else if (data.statusText === "Forbidden")
-            alert("danger", "Check Your Email For Verification Mail.");
+          if(data.statusText === "Email Exists") alert("danger", "Email Already Exists.");
+          else if(data.statusText === "Username Exists") alert("danger", "Username Already Exists.");
+          else if (data.statusText === "Not Acceptable Password.") alert("danger", "Invalid character used in password.");
           else alert("danger", "Error! Try Again Later.");
-          $("#user_submit_btn").html(`Login`);
-          btn.attr("disabled", false);
+          // $("#user_submit_btn").html(`Login`);
+          // btn.attr("disabled", false);
         },
       });
     }
