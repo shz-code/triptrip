@@ -32,6 +32,16 @@ class Query extends Database
         $this->conn->close();
         return $result;
     }
+    public function getPackage($id){
+        $this->connect();
+        
+        $sql = "SELECT * FROM packages WHERE package_id = $id";
+
+        $result = $this->conn->query($sql);
+
+        $this->conn->close();
+        return $result;
+    }
     public function getPackagesCount(){
         $this->connect();
         $sql = "SELECT * FROM packages";

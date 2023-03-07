@@ -696,7 +696,9 @@ nav.navbar-white .fa-solid{
 .right-arraw{
     transform:rotate(180deg);
 }
+
 .pagination span{
+    display: inline-block;
     margin: 10px 8px;
     width: 40px;
     height: 40px;
