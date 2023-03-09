@@ -73,6 +73,14 @@ a{
     font-size: 14px;
 }
 
+.profile-btns{
+    display: flex;
+    column-gap: 1rem;
+}
+.profile-btns i{
+    font-size: 1.5rem;
+}
+
 .container {
     padding: 0 7%;
 }
@@ -91,7 +99,8 @@ a{
 }
 
 .search-bar form{
-    width: 60%;
+    max-width: 800px;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -370,7 +379,7 @@ a{
     bottom: -12px;
     border-radius: 2px;
 }
-nav .fa-solid{
+nav .fa-bars{
    display: none; 
 }
 
@@ -413,6 +422,7 @@ nav .fa-solid{
     }
     .search-bar form{
         display: block;
+        padding: 10px 20px;
     }
     .search-bar form input{
         border-bottom: 1px solid #ddd;
@@ -456,9 +466,13 @@ nav .fa-solid{
     .register-btn {
         margin: 15px 15px 30px 0;
         display: inline-block;
-
     }
-    nav .fa-solid{
+    .profile-btns {
+        justify-content: flex-end;
+        column-gap: 2rem;
+        margin: 15px 15px 30px 0;
+    }
+    nav .fa-bars{
         display: block;
         position: fixed;
         top: 30px;
@@ -524,7 +538,10 @@ nav .fa-solid{
     background: var(--primary-color);
     color: #fff;
 }
-nav.navbar-white .fa-solid{
+.navbar-white .profile-btns i{
+    color: var(--primary-color);
+}
+nav.navbar-white .fa-bars{
     color: #000;
 }
 .navbar-white .active::after{
@@ -770,18 +787,28 @@ nav.navbar-white .fa-solid{
 }
 .gallery{
     display: grid;
-    grid-gap: 10px;
-    grid-template-areas:'first first . .' 'first first . .';
+    grid-gap: 0.5rem;
+    grid-template-columns: 2fr 1fr;
     margin: 20px 0;
-}
-.gallery div img{
     width: 100%;
-    display: block;
+}
+.gallery-img-1 img{
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+}
+.gallary-img-grp{
+    display: grid;
+    height: 100%;
+    row-gap: 0.5rem;
+}
+.gallary-img-grp img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
     border-radius: 10px;
 }
-.gallery-img-1{
-    grid-area: first;
-}
+
 .small-ditails h2{
   font-weight: 500;  
 }
@@ -802,12 +829,11 @@ nav.navbar-white .fa-solid{
     background: #fff;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    column-gap: 4rem;
     padding: 10px 50px;
+    text-align: center;
+}
+.check-form p{
+    margin: 10px 0;
 }
 .check-form label{
     display: block;
@@ -834,7 +860,8 @@ nav.navbar-white .fa-solid{
     outline: none;
     color: #fff;
     padding: 18px;
-    width: 350px;
+    max-width: 350px;
+    width: 100%;
     border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
@@ -953,6 +980,12 @@ nav.navbar-white .fa-solid{
     }
     .contact-host{
         margin: 40px 0;
+    }
+    .gallery{
+        grid-template-columns: 1fr;
+    }
+    .gallary-img-grp{
+        display: none;
     }
 }
 
@@ -1105,5 +1138,8 @@ nav.navbar-white .fa-solid{
     }
     .registration .btn-field button {
         padding: 10px 0;
+    }
+    .registration .btn-field button {
+        width: 50%;
     }
 }

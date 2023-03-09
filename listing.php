@@ -1,8 +1,14 @@
+<?php
+if (!isset($_SESSION)) {
+    session_start();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang='en'>
-<?php include_once('./services/_dbConnection.php') ?>
-<?php include('./components/_head.php') ?>
-
+<?php include_once './app/_dbConnection.php' ?>
+<?php include './components/_head.php' ?>
 <?php
 // error_reporting(0);
 if (isset($_GET["loc"]) && isset($_GET['g'])) {
@@ -21,16 +27,7 @@ if (isset($_GET["loc"]) && isset($_GET['g'])) {
             <li><a href='./index.php'>Popular Places</a></li>
             <li><a href='./listing.php' class='active'>All packages</a></li>
         </ul>
-        <?php
-        if (!isset($_SESSION))
-            session_start();
-        if (isset($_SESSION["logged_in"])) {
-            echo ' <a href="./services/_logout.php" class="register-btn">Logout</a>';
-        } else {
-            echo ' <a href="./registration.php" class="register-btn">Register Now</a>';
-        }
-        ?>
-        <i class='fa-solid fa-bars' onclick='togglebtn()'></i>
+        <?php include("./components/_navBtns.php") ?>
     </nav>
 
 
@@ -38,14 +35,14 @@ if (isset($_GET["loc"]) && isset($_GET['g'])) {
         <div class='list-container'>
             <div class='left-col'>
                 <?php
-                $query = new Query();
+                $packages = new Packages();
 
                 if ($location != "") {
-                    $allPackages = $query->getPackagesWithQueryCount($location);
-                    $res = $query->getPackages($location, 0, 5);
+                    $allPackages = $packages->getPackagesWithQueryCount($location);
+                    $res = $packages->getPackages($location, 0, 2);
                 } else {
-                    $allPackages = $query->getPackagesCount();
-                    $res = $query->getPackages("All", 0, 5);
+                    $allPackages = $packages->getPackagesCount();
+                    $res = $packages->getPackages("All", 0, 2);
                 }
                 echo "<p class='available-package'>Total <span id='all-packages-count'>$allPackages</span> Package(s) Available</p>
                 <h1>Find Your Suitable Package in <span class='brand'>triptrip</span></h1>
@@ -70,30 +67,37 @@ if (isset($_GET["loc"]) && isset($_GET['g'])) {
                     }
                     echo "<div class='package'>
                     <div class='package-img'>
-                        <img src='./assets/images/image-s1.png'>
+                        <img src=" . $row['master_image'] . ">
                     </div>
                     <div class='package-info'>
                         <p>" . $row['package_location'] . "</p>
                         <h3>" . $row['package_name'] . "</h3>";
-                    if ($row["is_hotel"] == 1)
+                    if ($row["is_hotel"] == 1) {
                         echo "Hotel / ";
-                    if ($row["is_transport"] == 1)
+                    }
+
+                    if ($row["is_transport"] == 1) {
                         echo "Transport / ";
-                    if ($row["is_food"] == 1)
+                    }
+
+                    if ($row["is_food"] == 1) {
                         echo "Food / ";
-                    if ($row["is_guide"] == 1)
+                    }
+
+                    if ($row["is_guide"] == 1) {
                         echo "Tour Guide";
+                    }
+
                     echo "<br>
-                        ".$stars."
+                        " . $stars . "
                         <p>" . $row['package_desc'] . "</p>
                         <div class='hotel-chekins'>
-                        <h4>Tour Start: ". $row['package_start']. "</h4>
-                        <h4>Tour End: ". $row['package_end']. "</h4>
+                        <h4>Tour Start: " . $row['package_start'] . "</h4>
+                        <h4>Tour End: " . $row['package_end'] . "</h4>
                         </div>
                         <div><a href='./package.php?id=" . $row['package_id'] . "' class='btn'>View Details</a></div>
                         <div class='package-price'>
-                            <p>2,4 Guests</p>
-                            <h4>" . $row['package_price'] . " Taka <span>Starting Price</span></h4>
+                            <h4>" . $row['package_price'] . " Taka <span>All Inclusive</span></h4>
                         </div>
                     </div>
                 </div>";
@@ -129,31 +133,6 @@ if (isset($_GET["loc"]) && isset($_GET['g'])) {
                         <input type='checkbox'>
                         <p>Hotel</p> <span>(0)</span>
                     </div>
-                    <div class='filter'>
-                        <input type='checkbox'>
-                        <p>Resort</p> <span>(0)</span>
-                    </div>
-                    <h3>Guests</h3>
-                    <div class='filter'>
-                        <input type='checkbox'>
-                        <p>Solo</p> <span>(0)</span>
-                    </div>
-                    <div class='filter'>
-                        <input type='checkbox'>
-                        <p>2</p> <span>(0)</span>
-                    </div>
-                    <div class='filter'>
-                        <input type='checkbox'>
-                        <p>3</p> <span>(0)</span>
-                    </div>
-                    <div class='filter'>
-                        <input type='checkbox'>
-                        <p>4</p> <span>(0)</span>
-                    </div>
-                    <div class='filter'>
-                        <input type='checkbox'>
-                        <p>5</p> <span>(0)</span>
-                    </div>
                     <div class='sidebar-link'>
                         <a href='#'>Contact us for custom packages</a>
                     </div>
@@ -165,35 +144,20 @@ if (isset($_GET["loc"]) && isset($_GET['g'])) {
             <i class='fa-solid fa-chevron-left'></i>
             <span class='current pagination-btn' data-target='1' onclick='paginationBtnHandle()'>1</span>
             <div class="pagination-btns-container">
-            <?php
-                for ($i = 2; $i < ($allPackages / 5) + 1; $i++) {
+                <?php
+                for ($i = 2; $i < ($allPackages / 2) + 1; $i++) {
                     echo "<span class='pagination-btn' data-target='" . $i . "' onclick='paginationBtnHandle()'>" . $i . "</span>";
                 }
-            ?>
+                ?>
             </div>
             <i class='fa-solid fa-chevron-right'></i>
         </div>
         <!-- ===========footer=================== -->
-        <div class='about-msg'>
-            <h2>About <span class='brand'>triptrip</span></h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae eius cumque, provident quaerat aspernatur
-                architecto totam ea corrupti esse repudiandae omnis asperiores voluptas! Error libero nisi adipisci rem,
-                molestiae et iste exercitationem asperiores esse eum facere ipsa voluptatem odit omnis iusto dolor atque
-                non eos maiores. Libero dolor fuga possimus.</p>
-        </div>
-        <div class='footer'>
-            <a href='https://www.facebook.com/akibul.hasan.13'><i class='fa-brands fa-facebook-f'></i></a>
-            <a href=''><i class='fa-brands fa-youtube'></i></a>
-            <a href=''><i class='fa-brands fa-twitter'></i></a>
-            <a href=''><i class='fa-brands fa-linkedin'></i></a>
-            <a href=''><i class='fa-brands fa-instagram'></i></a>
-            <hr>
-            <p>&copy; All rights reserved.</p>
-        </div>
+        <?php include "./components/_footer.php" ?>
     </div>
 
 
-    <?php include("./components/_js.php") ?>
+    <?php include "./components/_js.php" ?>
 
     <script>
         let paginationBtns = document.querySelectorAll(".pagination-btn");
@@ -205,7 +169,21 @@ if (isset($_GET["loc"]) && isset($_GET['g'])) {
         };
 
         const addPackage = (package) => {
-            const { package_name, package_rating,package_start,package_end, package_desc, package_price, package_location, is_hotel,is_transport,is_food,is_guide } = package;
+            const {
+                package_id,
+                package_name,
+                package_rating,
+                package_start,
+                package_end,
+                package_desc,
+                package_price,
+                package_location,
+                is_hotel,
+                is_transport,
+                is_food,
+                is_guide,
+                master_image
+            } = package;
             let stars = "";
             let cmp_stars = 0;
             // Full Stars
@@ -227,7 +205,7 @@ if (isset($_GET["loc"]) && isset($_GET['g'])) {
                 .innerHTML +=
                 `<div class='package'>
                 <div class='package-img'>
-                    <img src='./assets/images/image-s1.png'>
+                    <img src='${master_image}'>
                 </div>
                 <div class='package-info'>
                     <p>${package_location}</p>
@@ -244,7 +222,7 @@ if (isset($_GET["loc"]) && isset($_GET['g'])) {
                             <h4>Tour Start: ${package_start}</h4>
                             <h4>Tour End: ${package_end}</h4>
                     </div>
-                    <div><a href='./package.php' class='btn'>View Details</a></div>
+                    <div><a href='./package.php?id=${package_id}' class='btn'>View Details</a></div>
                     <div class='package-price'>
                         <p>2,4 Guests</p>
                         <h4>${package_price} Taka <span>Starting Price</span></h4>
@@ -253,17 +231,16 @@ if (isset($_GET["loc"]) && isset($_GET['g'])) {
             </div>`;
         };
 
-        const handlePagination = (packages,page) => {
+        const handlePagination = (packages, page) => {
             let res = "";
-            for (i = 2; i < (packages / 5) + 1; i++) {
-                if(i === parseInt(page)) res += `<span class='pagination-btn current' data-target='${i}' onclick='paginationBtnHandle()'>${i}</span>`;
+            for (i = 2; i < (packages / 2) + 1; i++) {
+                if (i === parseInt(page)) res += `<span class='pagination-btn current' data-target='${i}' onclick='paginationBtnHandle()'>${i}</span>`;
                 else res += `<span class='pagination-btn' data-target='${i}' onclick='paginationBtnHandle()'>${i}</span>`;
             }
             $(".pagination-btns-container").html(res);
         };
 
-        const ajaxCall = async (query, start = 1, end = 5000,page) => {
-
+        const ajaxCall = async (query, start = 1, end = 5000, page) => {
             $.ajax({
                 url: "./services/_packagePagination.php",
                 method: "POST",
@@ -278,14 +255,14 @@ if (isset($_GET["loc"]) && isset($_GET['g'])) {
                     $("#all-packages-count").html(`${data[0]}`);
                     $(".package-container").html("");
 
-                    console.log(data);
-
-                    handlePagination(data[0],page);
+                    handlePagination(data[0], page);
 
                     data.map((package, index) => {
                         if (index != 0) addPackage(package)
                     });
-                    $("html, body").animate({ scrollTop: 0 });
+                    $("html, body").animate({
+                        scrollTop: 0
+                    });
                 },
                 error: (data) => {
                     console.log("Error");
@@ -293,27 +270,27 @@ if (isset($_GET["loc"]) && isset($_GET['g'])) {
             });
         }
 
-            const paginationBtnHandle = async () => {
-                if (!event.target.classList.contains("current")) {
-                    var page = parseInt(event.target.getAttribute("data-target"));
-                    var end = page * 5;
-                    var start = end - 4;
-                    await ajaxCall(query, start, end,page);
-                    $(".current").removeClass("current");
-                    event.target.classList.add("current");
-                }
-            }
-
-            $("#search-form").submit((e) => {
-                e.preventDefault();
+        const paginationBtnHandle = async () => {
+            if (!event.target.classList.contains("current")) {
+                var page = parseInt(event.target.getAttribute("data-target"));
+                var end = page * 2;
+                var start = end - 1;
+                await ajaxCall(query, start, 2, page);
                 $(".current").removeClass("current");
-                paginationBtns[0].classList.add("current");
+                event.target.classList.add("current");
+            }
+        }
 
-                var loc = $("#sidebar-search-input").val();
-                query = loc;
-                if (query === "") ajaxCall(query, 1, 5);
-                else ajaxCall(query);
-            })
+        $("#search-form").submit((e) => {
+            e.preventDefault();
+            $(".current").removeClass("current");
+            paginationBtns[0].classList.add("current");
+
+            var loc = $("#sidebar-search-input").val();
+            query = loc;
+            if (query === "") ajaxCall(query, 1, 2);
+            else ajaxCall(query, 1, 2);
+        })
     </script>
 
 </body>

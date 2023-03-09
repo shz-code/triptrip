@@ -1,4 +1,11 @@
 {
     "php.validate.executablePath": "C:\\laragon\\bin\\php\\php-8.1.10-Win32-vs16-x64\\php.exe",
-    "php.version": "v8.1.10"
+    "php.version": "v8.1.10",
+    // Set the default
+    "editor.formatOnSave": false,
+    // Enable per-language
+    "[php]": {
+        "editor.formatOnSave": true
+    },
+    "phpfmt.php_bin": "C:\\laragon\\bin\\php\\php-8.1.10-Win32-vs16-x64\\php.exe",
 }

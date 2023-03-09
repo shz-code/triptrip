@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php include("./components/_head.php") ?>
+<?php include "./components/_head.php" ?>
 
 <body>
     <div class="header">
@@ -10,16 +10,7 @@
                 <li><a href="./index.php" class="active">Popular Places</a></li>
                 <li><a href="./listing.php">All packages</a></li>
             </ul>
-            <?php
-            if (!isset($_SESSION))
-                session_start();
-            if (isset($_SESSION["logged_in"])) {
-                echo ' <a href="./services/_logout.php" class="register-btn">Logout</a>';
-            } else {
-                echo ' <a href="./registration.php" class="register-btn">Register Now</a>';
-            }
-            ?>
-            <i class="fa-solid fa-bars" onclick="togglebtn()"></i>
+            <?php include("./components/_navBtns.php") ?>
         </nav>
         <div class="container hero">
             <h1>Travel Bangladesh Like Never Before</h1>
@@ -28,10 +19,6 @@
                     <div class="location-input">
                         <label>Location</label>
                         <input required type="text" id="location" placeholder="Where are you going?">
-                    </div>
-                    <div>
-                        <label>Guest</label>
-                        <input required type="text" id="guest" placeholder="Add Guest">
                     </div>
                     <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
@@ -52,16 +39,14 @@
                 </span>
             </div>
             <div>
-                <img
-                    src="https://4.bp.blogspot.com/-mdhiT5vtA_A/TyZ6nLh1RDI/AAAAAAAAAA0/wPKDcNBcUTM/s1600/sundarban+forest3.jpg">
+                <img src="https://4.bp.blogspot.com/-mdhiT5vtA_A/TyZ6nLh1RDI/AAAAAAAAAA0/wPKDcNBcUTM/s1600/sundarban+forest3.jpg">
                 <span>
                     <h3>Sundarbans</h3>
                     <p>Starts @ 3000 Taka</p>
                 </span>
             </div>
             <div>
-                <img
-                    src="https://th.bing.com/th/id/R.25148796f3a95244b27a261256084c4b?rik=KmmFNVd97%2bjhog&pid=ImgRaw&r=0">
+                <img src="https://th.bing.com/th/id/R.25148796f3a95244b27a261256084c4b?rik=KmmFNVd97%2bjhog&pid=ImgRaw&r=0">
                 <span>
                     <h3>Bandarban</h3>
                     <p>Starts @ 3500 Taka</p>
@@ -111,8 +96,7 @@
         <h2 class="sub-title">Travellers Stories</h2>
         <div class="stories">
             <div class="travellers-card">
-                <img
-                    src="https://th.bing.com/th/id/R.4333832c4bf1ac8a33b7de33edf931f6?rik=L5WmyYEBGCsuLQ&riu=http%3a%2f%2fblogs.ubc.ca%2ftheglobalspectrum%2ffiles%2f2015%2f11%2flets-travel-to-bangladesh-with-simon-urwin-featured.jpg&ehk=xhl0gLFAo9b9whN8uY4zQflUaC7EkHLpJE0XWQUVf3I%3d&risl=&pid=ImgRaw&r=0">
+                <img src="https://th.bing.com/th/id/R.4333832c4bf1ac8a33b7de33edf931f6?rik=L5WmyYEBGCsuLQ&riu=http%3a%2f%2fblogs.ubc.ca%2ftheglobalspectrum%2ffiles%2f2015%2f11%2flets-travel-to-bangladesh-with-simon-urwin-featured.jpg&ehk=xhl0gLFAo9b9whN8uY4zQflUaC7EkHLpJE0XWQUVf3I%3d&risl=&pid=ImgRaw&r=0">
                 <p><a href="https://awaywiththesteiners.com/travel-in-bangladesh/">Travelling in Bangladesh Starter</a>
                 </p>
             </div>
@@ -128,32 +112,16 @@
         <a href="https://nijhoom.com/bangladesh-travel-blog/" class="Start-btn">Go to travel blog</a>
 
         <!-- ===============footer================ -->
-        <div class="about-msg">
-            <h2>About <span class="brand">triptrip</span></h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae eius cumque, provident quaerat aspernatur
-                architecto totam ea corrupti esse repudiandae omnis asperiores voluptas! Error libero nisi adipisci rem,
-                molestiae et iste exercitationem asperiores esse eum facere ipsa voluptatem odit omnis iusto dolor atque
-                non eos maiores. Libero dolor fuga possimus.</p>
-        </div>
-        <div class="footer">
-            <a href="https://www.facebook.com/akibul.hasan.13"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href=""><i class="fa-brands fa-youtube"></i></a>
-            <a href=""><i class="fa-brands fa-twitter"></i></a>
-            <a href=""><i class="fa-brands fa-linkedin"></i></a>
-            <a href=""><i class="fa-brands fa-instagram"></i></a>
-            <hr>
-            <p>&copy; All rights reserved.</p>
-        </div>
-    </div>
-    <?php include("./components/_js.php") ?>
-    <script>
-        $("#search_form").submit(e => {
-            e.preventDefault();
-            var loc = $("#location").val();
-            var guest = $("#guest").val();
-            window.location = `http://localhost/triptrip/listing.php?loc=${loc}&g=${guest}`;
-        })
-    </script>
+        <?php include "./components/_footer.php" ?>
+        <?php include "./components/_js.php" ?>
+        <script>
+            $("#search_form").submit(e => {
+                e.preventDefault();
+                var loc = $("#location").val();
+                var guest = $("#guest").val();
+                window.location = `http://localhost/triptrip/listing.php?loc=${loc}&g=${guest}`;
+            })
+        </script>
 </body>
 
 </html>

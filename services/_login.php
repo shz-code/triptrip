@@ -1,7 +1,9 @@
 <?php
-if (!isset($_SESSION))
+if (!isset($_SESSION)) {
     session_start();
-include_once("./_dbConnection.php");
+}
+
+include_once "../app/_dbConnection.php";
 
 function checkPass($pass)
 {
@@ -31,6 +33,5 @@ if (isset($_POST["loginUser"]) && isset($_POST['email']) && isset($_POST['pass']
     // Paswword Encryption
     $pass = sha1($pass);
 
-    return json_encode($auth->loginUser($email,$pass));
+    return json_encode($auth->loginUser($email, $pass));
 }
-?>

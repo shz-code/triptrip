@@ -16,6 +16,7 @@
 
 body{
     background: #f1f1f1;
+    display: flex;
 }
 
 a {
@@ -69,10 +70,10 @@ td {
 }
 
 .side-menu {
+    width: 15%;
     position: fixed;
     background: var(--primary-color);
-    width: 15vw;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     row-gap: 2rem;
@@ -100,13 +101,12 @@ ul{
 }
 .side-menu li a{
     text-align: center;
-    width: 100%;
     display: flex;
     align-items: center;
     column-gap: 1rem;
     font-size: 1.2rem;
     padding: 10px 40px;
-    color: white;
+    color: black;
     cursor: pointer;
 }
 .side-menu li.active a {
@@ -122,27 +122,27 @@ ul{
 .container {
     position: absolute;
     right: 0;
-    width: 85vw;
+    width: 85%;
     background: #f1f1f1;
 }
 
 .container .header {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 85vw;
-    height: 4rem;
+    /* position: fixed; */
+    /* top: 0;
+    right: 0; */
+    width: 100%;
     background: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1;
+    /* z-index: 1; */
 }
 
 .container .header .nav {
     width: 90%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .container .content {

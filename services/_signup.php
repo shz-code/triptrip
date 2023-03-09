@@ -1,5 +1,5 @@
 <?php
-include_once("./_dbConnection.php");
+include_once "../app/_dbConnection.php";
 function checkPass($pass)
 {
     $invalid = array("=", "*", "-", "#", "$", "'");
@@ -21,16 +21,14 @@ if (isset($_POST['newUser']) && isset($_POST['username']) && isset($_POST['email
     $pass = $_POST['pass'];
 
     $auth = new Auth();
-    
-    // Check if username exists 
-    if(!$auth->checkUserName($username))
-    {
+
+    // Check if username exists
+    if (!$auth->checkUserName($username)) {
         die(header("HTTP/1.0 406 Username Exists"));
     }
 
-    // Check if Email exists 
-    if(!$auth->checkEmail($email))
-    {
+    // Check if Email exists
+    if (!$auth->checkEmail($email)) {
         die(header("HTTP/1.0 406 Email Exists"));
     }
 
@@ -42,6 +40,5 @@ if (isset($_POST['newUser']) && isset($_POST['username']) && isset($_POST['email
     // Paswword Encryption
     $pass = sha1($pass);
 
-    return json_encode($auth->createUser($username,$email,$pass));
+    return json_encode($auth->createUser($username, $email, $pass));
 }
-?>

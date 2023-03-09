@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/styles.css">
-    <title>Triptrip - Admin Panel</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
+<!-- Secure route for only admin -->
+<?php
+if (!isset($_SESSION)) {
+    session_start();
+}
+if (!isset($_SESSION["logged_in"])) {
+    echo '<script> location.href = "./index.php" </script>';
+}
+if (!isset($_SESSION["is_admin"])) {
+    echo '<script> location.href = "../user_dashboard.php" </script>';
+}
+?>
+<?php include("./components/_head.php");
+include_once("../app/_dbConnection.php");
+$usersInstance = new Users();
+$users = $usersInstance->getAllUsers();
+$usersCount = $usersInstance->getUsersCount();
+?>
 
 <body>
     <div class="side-menu">
@@ -22,28 +30,13 @@
         </ul>
     </div>
     <div class="container">
-        <div class="header">
-            <div class="nav">
-                <div class="brand-name">
-                    <a href="../index.php" class="logo">triptrip</a>
-                </div>
-            </div>
-        </div>
+        <?php include("./components/_header.php") ?>
         <div class="content">
             <div class="cards">
                 <div class="card">
                     <div class="box">
-                        <h1>2194</h1>
-                        <h3>Total Users</h3>
-                    </div>
-                    <div class="icon-case">
-                        <i class="fa-solid fa-users"></i>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="box">
-                        <h1>15</h1>
-                        <h3>New users <br>Last 7 days</h3>
+                        <h1><?php echo $usersCount ?></h1>
+                        <h3>Total User(s)</h3>
                     </div>
                     <div class="icon-case">
                         <i class="fa-solid fa-users"></i>
@@ -57,29 +50,26 @@
                     </div>
                     <table>
                         <tr>
-                            <th>Profile</th>
                             <th>Name</th>
-                            <th>Phone</th>
-                            <th>Total Purchase</th>
+                            <th>Email</th>
+                            <th>Registration Date</th>
+                            <th>Account Status</th>
                         </tr>
-                        <tr>
-                            <td><a href=""><i class="fa-regular fa-user"></i></a></td>
-                            <td>Steve Doe</td>
-                            <td>0176123123</td>
-                            <td>1500 Tk</td>
-                        </tr>
-                        <tr>
-                            <td><a href=""><i class="fa-regular fa-user"></i></a></td>
-                            <td>John Steve</td>
-                            <td>0176123123</td>
-                            <td>1500 Tk</td>
-                        </tr>
-                        <tr>
-                            <td><a href=""><i class="fa-regular fa-user"></i></a></td>
-                            <td>John Doe</td>
-                            <td>0176123123</td>
-                            <td>1500 Tk</td>
-                        </tr>
+                        <?php
+                        while ($user = mysqli_fetch_assoc($users)) {
+                            echo "
+                                <tr>
+                                    <td>" . $user['username'] . "</td>
+                                    <td>" . $user['email'] . "</td>
+                                    <td>" . $user['date_created'] . "</td>
+                                    <td>
+                                        <button class='btn'></button>
+                                        <button class='btn'></button>
+                                    </td>
+                                </tr>";
+                        }
+                        ?>
+
                     </table>
                 </div>
             </div>

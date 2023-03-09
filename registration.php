@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include("./components/_head.php");
-if (!isset($_SESSION))
+<?php include "./components/_head.php";
+if (!isset($_SESSION)) {
     session_start();
-if (isset($_SESSION["logged_in"]))
-    echo '<script> location.href = "./index.php" </script>'; ?>
+}
+
+if (isset($_SESSION["logged_in"])) {
+    echo '<script> location.href = "./index.php" </script>';
+}
+?>
 
 <body>
     <div class="registration-header">
@@ -68,7 +72,7 @@ if (isset($_SESSION["logged_in"]))
         </div>
     </div>
 
-    <?php include("./components/_js.php") ?>
+    <?php include "./components/_js.php"?>
     <script src="./assets/js/registration.js"></script>
 </body>
 

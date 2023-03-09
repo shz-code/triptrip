@@ -22,26 +22,37 @@ $("#signinBtn").click((e) => {
   let email = $("#email").val(),
     pass = $("#password").val();
 
-  if (!$("#signinBtn").hasClass("disable")) {
-    $.ajax({
-      url: "./services/_login.php",
-      method: "POST",
-      type: "json",
-      data: {
-        loginUser: "loginUser",
-        email: email,
-        pass: pass,
-      },
-      success: (data) => {
-        window.location.replace("./index.php");
-      },
-      error: (data) => {
-        if (data.statusText === "User Not Found") alert("danger", "User Not Found");
-        else alert("danger", "Error! Try Again Later.");
-        // $("#user_submit_btn").html(`Login`);
-        // btn.attr("disabled", false);
-      },
-    });
+    if (!$("#signinBtn").hasClass("disable")) {
+      
+      if (email === "" || pass === "") {
+        alert("danger", "Input fields can not be empty");
+      }
+      else {
+      $("#signupBtn").html("Loading...");
+      $("#signinBtn").html("Loading...");
+      $("#signinBtn").addClass("disable");
+        $.ajax({
+          url: "./services/_login.php",
+          method: "POST",
+          type: "json",
+          data: {
+            loginUser: "loginUser",
+            email: email,
+            pass: pass,
+          },
+          success: (data) => {
+            window.location.replace("./index.php");
+          },
+        error: (data) => {
+          if (data.statusText === "User Not Found") alert("danger", "User Not Found");
+          else alert("danger", "Error! Try Again Later.");
+          
+          $("#signinBtn").html("Sign In");
+          $("#signupBtn").html("Sign Up");
+          $("#signinBtn").removeClass("disable");
+        },
+      });
+    }
   } else {
     $("#nameField").css("max-height", "0px");
     $("#title").html("Sign In");
@@ -59,6 +70,9 @@ $("#signupBtn").click((e) => {
     if (username === "" || email === "" || pass === "") {
       alert("danger", "Input fields can not be empty");
     } else {
+      $("#signupBtn").html("Loading...");
+      $("#signinBtn").html("Loading...");
+      $("#signupBtn").addClass("disable");
       $.ajax({
         url: "./services/_signup.php",
         method: "POST",
@@ -77,14 +91,18 @@ $("#signupBtn").click((e) => {
             $("#title").html("Sign In");
             $("#signupBtn").css("display","none");
           }
+          $("#signupBtn").html("Sign Up");
+          $("#signinBtn").html("Sign In");
+          $("#signupBtn").removeClass("disable");
         },
         error: (data) => {
           if(data.statusText === "Email Exists") alert("danger", "Email Already Exists.");
           else if(data.statusText === "Username Exists") alert("danger", "Username Already Exists.");
           else if (data.statusText === "Not Acceptable Password.") alert("danger", "Invalid character used in password.");
           else alert("danger", "Error! Try Again Later.");
-          // $("#user_submit_btn").html(`Login`);
-          // btn.attr("disabled", false);
+          $("#signupBtn").html("Sign Up");
+          $("#signinBtn").html("Sign In");
+          $("#signupBtn").removeClass("disable");
         },
       });
     }
