@@ -20,6 +20,14 @@ $packages = new Packages();
 
 $res = $packages->getPackage($package_id);
 $row = mysqli_fetch_assoc($res);
+
+// Check if user already purchased the package
+$ckUser = 0;
+$transactionInstance = new Transactions();
+if (isset($_SESSION['logged_in'])) {
+    $transaction = $transactionInstance->checkUserTransaction($_SESSION['user_id'], $package_id);
+    $ckUser = $transaction->num_rows;
+}
 ?>
 
 <body>
@@ -123,24 +131,32 @@ $row = mysqli_fetch_assoc($res);
         echo "
         <div class='gallery'>
             <div class='gallery-img-1'><img src=" . $row['master_image'] . "></div>
-            <div class='gallary-img-grp'>
+            <div class='gallery-img-grp'>
                 <img src=" . $row['extra_image_1'] . ">
                 <img src=" . $row['extra_image_2'] . ">
             </div>
         </div>";
 
         echo "
-        <div class='small-ditails'>
+        <div class='small-details'>
             <h3>Tour Starts: " . $row["package_start"] . "</h3>
             <h3>Tour Ends: " . $row["package_end"] . "</h3>
             <h4>" . $row["package_price"] . " Taka / All Inclusive</h4>
             <div>
-                <hr class='line'>
-                <form class='check-form' method='post'>
-                    <p class='status-msg'></p>
-                    <button class='check-btn'>Check Availability</button>
-                </form>
-                <h2>The packages comes with <i class='fa-solid fa-chevron-down'></i></h2>
+                <hr class='line'>";
+
+        if (!isset($_SESSION['is_admin'])) {
+            echo
+            "       <div class='check-form'>
+                        <p class='status-msg'></p>";
+            if ($ckUser > 0) {
+                echo  "<button class='check-btn'>You Have Already Purchased this package.</button>";
+            } else  echo  "<button  class='check-btn btn-activate'>Check Availability</button>";
+            echo    "</div>";
+        }
+
+
+        echo "<h2>The packages comes with <i class='fa-solid fa-chevron-down'></i></h2>
                     " . $features . "
                 <hr class='line'>
                 <p class='package-desc'>" . $row['package_desc'] . "</p>
@@ -166,9 +182,9 @@ $row = mysqli_fetch_assoc($res);
         let urlParams = new URLSearchParams(location.search);
         packageId = urlParams.get('id');
 
-        $(".check-form").submit(e => {
+        $(".btn-activate").click(e => {
             e.preventDefault();
-            $(".check-btn").html("Checking");
+            $(".btn-activate").html("Checking");
             $.ajax({
                 url: "./services/_packageAvailability.php",
                 method: "POST",
@@ -179,11 +195,11 @@ $row = mysqli_fetch_assoc($res);
                 success: (data) => {
                     data = JSON.parse(data);
                     if (data > 0) {
-                        $(".status-msg").html("Avaiable for booking. <a href=''>Click here to proceed booking.</a>");
+                        $(".status-msg").html(`Available for booking. <a href=<?php echo "./services/_checkout.php?package=" . $row['package_id'] . "&user=" . $_SESSION['user_id'] ?>>Click here to proceed booking.</a>`);
                     } else {
                         $(".status-msg").html("Sorry this package is already full.")
                     }
-                    $(".check-btn").html("Check Availability");
+                    $(".btn-activate").html("Check Availability");
                 },
                 error: (data) => {
                     if (data.statusText === "Forbidden") {
@@ -191,7 +207,7 @@ $row = mysqli_fetch_assoc($res);
                     } else if (data.statusText === "Finished") {
                         $(".status-msg").html("Sorry this package is already finished.");
                     }
-                    $(".check-btn").html("Check Availability");
+                    $(".btn-activate").html("Check Availability");
                 },
             });
         })

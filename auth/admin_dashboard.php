@@ -7,10 +7,10 @@ if (!isset($_SESSION)) {
     session_start();
 }
 if (!isset($_SESSION["logged_in"])) {
-    echo '<script> location.href = "./index.php" </script>';
+    echo '<script> location.href = "../index.php" </script>';
 }
 if (!isset($_SESSION["is_admin"])) {
-    echo '<script> location.href = "../user_dashboard.php" </script>';
+    echo '<script> location.href = "./user_dashboard.php" </script>';
 }
 ?>
 
@@ -21,6 +21,9 @@ $users = $usersInstance->getAllUsers(5);
 $usersCount = $usersInstance->getUsersCount();
 $packages = new Packages();
 $packagesCount = $packages->getPackagesCount();
+$transactionsInstance = new Transactions();
+$transactions = $transactionsInstance->getAllTransactions(2);
+$totalAmount = $transactionsInstance->getTotalTransactionAmount();
 ?>
 
 <body>
@@ -29,7 +32,7 @@ $packagesCount = $packages->getPackagesCount();
             <li class="active"><a href="./admin_dashboard.php"><i class="fa-solid fa-chart-line"></i><span>Dashboard</span></a></li>
             <li><a href="./users.php"><i class="fa-solid fa-users"></i><span>Users</span></a></li>
             <li><a href="./packages.php"><i class="fa-solid fa-cube"></i><span>Packages</span></a> </li>
-            <li><a href=""><i class="fa-solid fa-money-bill-trend-up"></i><span>Saes</span></a> </li>
+            <li><a href="./sales.php"><i class="fa-solid fa-money-bill-trend-up"></i><span>Sales</span></a> </li>
         </ul>
     </div>
     <div class="container">
@@ -56,7 +59,7 @@ $packagesCount = $packages->getPackagesCount();
                 </div>
                 <div class="card">
                     <div class="box">
-                        <h1>15000 tk</h1>
+                        <h1><?php echo $totalAmount ?> tk</h1>
                         <h3>Sales</h3>
                     </div>
                     <div class="icon-case">
@@ -68,7 +71,7 @@ $packagesCount = $packages->getPackagesCount();
                 <div class="recent-payments">
                     <div class="title">
                         <h2>Recent Payments</h2>
-                        <a href="#" class="btn">View All</a>
+                        <a href="./sales.php" class="btn">View All</a>
                     </div>
                     <table>
                         <tr>
@@ -77,12 +80,18 @@ $packagesCount = $packages->getPackagesCount();
                             <th>Amount</th>
                             <th>Details</th>
                         </tr>
-                        <tr>
-                            <td>Sara</td>
-                            <td>Cox's Day</td>
-                            <td>6500 Taka</td>
-                            <td><a href="#" class="btn">View</a></td>
-                        </tr>
+                        <?php
+                        while ($row = mysqli_fetch_assoc($transactions)) {
+                            echo "
+                                <tr>
+                                    <td>" . $row['user_id'] . "</td>
+                                    <td>" . $row['package_id'] . "</td>
+                                    <td>" . $row['trans_amount'] . " Taka</td>
+                                    <td><a href='#' class='btn'>View</a></td>
+                                </tr>
+                                ";
+                        }
+                        ?>
                     </table>
                 </div>
                 <div class="new-users">

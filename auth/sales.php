@@ -15,18 +15,18 @@ if (!isset($_SESSION["is_admin"])) {
 ?>
 <?php include("./components/_head.php");
 include_once("../app/_dbConnection.php");
-$usersInstance = new Users();
-$users = $usersInstance->getAllUsers();
-$usersCount = $usersInstance->getUsersCount();
+$transactionsInstance = new Transactions();
+$transactions = $transactionsInstance->getAllTransactions();
+$totalAmount = $transactionsInstance->getTotalTransactionAmount();
 ?>
 
 <body>
     <div class="side-menu">
         <ul>
             <li><a href="./admin_dashboard.php"><i class="fa-solid fa-chart-line"></i><span>Dashboard</span></a></li>
-            <li class="active"><a href="./users.php"><i class="fa-solid fa-users"></i><span>Users</span></a></li>
+            <li><a href="./users.php"><i class="fa-solid fa-users"></i><span>Users</span></a></li>
             <li><a href="./packages.php"><i class="fa-solid fa-cube"></i><span>Packages</span></a> </li>
-            <li><a href=""><i class="fa-solid fa-money-bill-trend-up"></i><span>Saes</span></a> </li>
+            <li class="active"><a href="./sales.php"><i class="fa-solid fa-money-bill-trend-up"></i><span>Sales</span></a> </li>
         </ul>
     </div>
     <div class="container">
@@ -35,41 +35,38 @@ $usersCount = $usersInstance->getUsersCount();
             <div class="cards">
                 <div class="card">
                     <div class="box">
-                        <h1><?php echo $usersCount ?></h1>
-                        <h3>Total User(s)</h3>
+                        <h1><?php echo $totalAmount ?> tk</h1>
+                        <h3>Sales</h3>
                     </div>
                     <div class="icon-case">
-                        <i class="fa-solid fa-users"></i>
+                        <i class="fa-solid fa-money-bill-trend-up"></i>
                     </div>
                 </div>
             </div>
             <div class="content-2">
                 <div class="new-users">
                     <div class="title">
-                        <h2>All Users</h2>
+                        <h2>All Transactions</h2>
                     </div>
                     <table>
                         <tr>
                             <th>Name</th>
-                            <th>Email</th>
-                            <th>Registration Date</th>
-                            <th>Account Status</th>
+                            <th>Package</th>
+                            <th>Amount</th>
+                            <th>Details</th>
                         </tr>
                         <?php
-                        while ($user = mysqli_fetch_assoc($users)) {
+                        while ($row = mysqli_fetch_assoc($transactions)) {
                             echo "
                                 <tr>
-                                    <td>" . $user['username'] . "</td>
-                                    <td>" . $user['email'] . "</td>
-                                    <td>" . $user['date_created'] . "</td>
-                                    <td>
-                                        <button class='btn'></button>
-                                        <button class='btn'></button>
-                                    </td>
-                                </tr>";
+                                    <td>" . $row['user_id'] . "</td>
+                                    <td>" . $row['package_id'] . "</td>
+                                    <td>" . $row['trans_amount'] . " Taka</td>
+                                    <td><a href='#' class='btn'>View</a></td>
+                                </tr>
+                                ";
                         }
                         ?>
-
                     </table>
                 </div>
             </div>

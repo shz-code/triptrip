@@ -797,22 +797,22 @@ nav.navbar-white .fa-bars{
     height: 100%;
     width: 100%;
 }
-.gallary-img-grp{
+.gallery-img-grp{
     display: grid;
     height: 100%;
     row-gap: 0.5rem;
 }
-.gallary-img-grp img{
+.gallery-img-grp img{
     height: 100%;
     width: 100%;
     object-fit: cover;
     border-radius: 10px;
 }
 
-.small-ditails h2{
+.small-details h2{
   font-weight: 500;  
 }
-.small-ditails h4{
+.small-details h4{
     text-align: right;
     font-size: 22px;
 }

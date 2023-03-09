@@ -148,6 +148,15 @@ class Users extends Database
         $this->conn->close();
         return $result;
     }
+    public function getUser($id)
+    {
+        $this->connect();
+        $sql = "SELECT * FROM users WHERE id = $id";
+        $result = $this->conn->query($sql);
+
+        $this->conn->close();
+        return $result;
+    }
     public function getUsersCount()
     {
         $this->connect();
@@ -155,5 +164,56 @@ class Users extends Database
         $result = $this->conn->query($sql);
         $this->conn->close();
         return $result->num_rows;
+    }
+}
+
+class Transactions extends Database
+{
+    public function getAllTransactions($limit = 1000)
+    {
+        $this->connect();
+        $sql = "SELECT * FROM transactions ORDER BY trans_date LIMIT $limit";
+        $result = $this->conn->query($sql);
+
+        $this->conn->close();
+        return $result;
+    }
+    public function getTransaction($id)
+    {
+        $this->connect();
+        $sql = "SELECT * FROM transactions WHERE trans_id = $id";
+        $result = $this->conn->query($sql);
+
+        $this->conn->close();
+        return $result;
+    }
+    public function checkUserTransaction($user_id, $package_id)
+    {
+        $this->connect();
+        $sql = "SELECT * FROM transactions WHERE user_id = $user_id AND package_id = $package_id";
+        $result = $this->conn->query($sql);
+
+        $this->conn->close();
+        return $result;
+    }
+    public function getTotalTransactionAmount()
+    {
+        $this->connect();
+        $sql = "SELECT * FROM transactions";
+        $result = $this->conn->query($sql);
+        $total = 0;
+        while ($row = mysqli_fetch_assoc($result)) {
+            $total += $row['trans_amount'];
+        }
+        $this->conn->close();
+        return $total;
+    }
+    public function createNewTransaction($trans_id, $user_id, $package_id, $trans_amount, $trans_date, $card_no, $val_id)
+    {
+        $this->connect();
+        $sql = "INSERT INTO transactions (trans_id,user_id,package_id,trans_amount,trans_date,card_no,val_id) VALUES ('" . $trans_id . "'," . $user_id . "," . $package_id . "," . $trans_amount . ",'" . $trans_date . "','" . $card_no . "','" . $val_id . "')";
+        $this->conn->query($sql);
+        $this->conn->close();
+        return "200";
     }
 }

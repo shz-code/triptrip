@@ -7,10 +7,10 @@ if (!isset($_SESSION)) {
     session_start();
 }
 if (!isset($_SESSION["logged_in"])) {
-    echo '<script> location.href = "./index.php" </script>';
+    echo '<script> location.href = "../index.php" </script>';
 }
 if (isset($_SESSION["is_admin"])) {
-    echo '<script> location.href = "./admin/admin_dashboard.php" </script>';
+    echo '<script> location.href = "./admin_dashboard.php" </script>';
 }
 ?>
 
