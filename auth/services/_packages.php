@@ -6,7 +6,7 @@ $packages = $packagesInstance->getPackages('All');
 $allPackagesCount = $packages->num_rows;
 
 $curr_date = date("Y-m-d");
-$datetime2 = date_create($curr_date);
+$timestamp2 = strtotime($curr_date);
 
 $prevPackages = array();
 $activePackages = array();
@@ -15,11 +15,11 @@ while ($row = mysqli_fetch_assoc($packages)) {
 
     if ($row['package_start']) {
         $package_start = $row['package_start'];
-        $datetime1 = date_create($package_start);
+        $timestamp1 = strtotime($package_start);
 
-        $diff = date_diff($datetime1, $datetime2);
+        $diff = $timestamp1 - $timestamp2;
 
-        if ($diff->d > 0) {
+        if ($diff * 86400 > 0) {
             array_push($activePackages, $row);
         } else {
             array_push($prevPackages, $row);

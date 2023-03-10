@@ -110,18 +110,18 @@
             </div>
         </div>
         <a href="https://nijhoom.com/bangladesh-travel-blog/" class="Start-btn">Go to travel blog</a>
-
-        <!-- ===============footer================ -->
-        <?php include "./components/_footer.php" ?>
-        <?php include "./components/_js.php" ?>
-        <script>
-            $("#search_form").submit(e => {
-                e.preventDefault();
-                var loc = $("#location").val();
-                var guest = $("#guest").val();
-                window.location = `http://localhost/triptrip/listing.php?loc=${loc}&g=${guest}`;
-            })
-        </script>
+    </div>
+    <!-- ===============footer================ -->
+    <?php include "./components/_footer.php" ?>
+    <?php include "./components/_js.php" ?>
+    <script>
+        $("#search_form").submit(e => {
+            e.preventDefault();
+            var loc = $("#location").val();
+            var guest = $("#guest").val();
+            window.location = `http://localhost/triptrip/listing.php?loc=${loc}&g=${guest}`;
+        })
+    </script>
 </body>
 
 </html>

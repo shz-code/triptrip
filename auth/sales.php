@@ -59,8 +59,8 @@ $totalAmount = $transactionsInstance->getTotalTransactionAmount();
                         while ($row = mysqli_fetch_assoc($transactions)) {
                             echo "
                                 <tr>
-                                    <td>" . $row['user_id'] . "</td>
-                                    <td>" . $row['package_id'] . "</td>
+                                    <td>" . $row['username'] . "</td>
+                                    <td>" . $row['package_name'] . "</td>
                                     <td>" . $row['trans_amount'] . " Taka</td>
                                     <td><a href='#' class='btn'>View</a></td>
                                 </tr>

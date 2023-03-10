@@ -51,7 +51,7 @@ if (!isset($_SESSION['is_admin'])) {
                 </div>
                 <div class='card  add-package'>
                     <div class='box'>
-                        Add New Package
+                        <a href="./new_package.php"> Add New Package </a>
                     </div>
                 </div>
             </div>

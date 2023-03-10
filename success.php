@@ -28,15 +28,43 @@ if ($code == 200 && !(curl_errno($handle))) {
     $card_no = $result->card_no;
 
     # ISSUER INFO
-    $card_issuer = $result->card_issuer;
+    $card_type = $result->card_type;
 
     # API AUTHENTICATION
     $user_id =  $result->value_a;
     $package_id = $result->value_b;
 
     $transactionInstance = new Transactions();
-    echo $transactionInstance->createNewTransaction($tran_id, $user_id, $package_id, $amount, $tran_date, $card_no, $val_id);
+    $transactionInstance->createNewTransaction($tran_id, $user_id, $package_id, $amount, $tran_date, $card_no, $val_id, $card_type);
+    $packagesInstance = new Packages();
+    $res = $packagesInstance->getPackage($package_id);
+    $package = mysqli_fetch_assoc($res);
+    $count = $package['package_booked'];
+    $count = $count + 1;
+    $packagesInstance->updatePackagePurchase($package_id, $count);
+    echo var_dump($result);
 } else {
 
     echo "Failed to connect with SSLCOMMERZ";
 }
+?>
+<html>
+<title>Successful Purchase</title>
+
+<body>
+    <h1>Your purchase is completed.</h1>
+    <p>Redirecting to dashboard in <span class="counter"></span></p>
+
+    <script>
+        let countDown = 5;
+        setInterval(() => {
+            countDown--;
+            document.querySelector(".counter").innerHTML = countDown;
+        }, 1000)
+        setTimeout(() => {
+            location.href = "./auth/user_dashboard.php";
+        }, 5000);
+    </script>
+</body>
+
+</html>

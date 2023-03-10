@@ -16,17 +16,43 @@ class Database
     }
 }
 
+/*
+    Known error:
+    Two users purchase a product at the same time not handled.
+    User purchasing same package multiple times not handled.
+*/
+
 class Packages extends Database
 {
+    public function createPackage($package_name, $package_desc, $package_start, $package_end, $package_price, $package_location, $is_hotel, $is_transport, $is_food, $is_guide, $package_capacity, $map_loc, $master_image, $extra_image_1, $extra_image_2)
+    {
+        $this->connect();
+        $package_name = mysqli_real_escape_string($this->conn, $package_name);
+        $package_desc = mysqli_real_escape_string($this->conn, $package_desc);
+        $package_location = mysqli_real_escape_string($this->conn, $package_location);
+        $map_loc = mysqli_real_escape_string($this->conn, $map_loc);
+        $master_image = mysqli_real_escape_string($this->conn, $master_image);
+        $extra_image_1 = mysqli_real_escape_string($this->conn, $extra_image_1);
+        $extra_image_2 = mysqli_real_escape_string($this->conn, $extra_image_2);
+
+        $sql = "INSERT INTO packages (package_name,package_desc,package_start,package_end,package_price,package_location,is_hotel,is_transport,is_food,is_guide,package_capacity,map_loc,master_image,extra_image_1,extra_image_2)
+        VALUES
+        ('" . $package_name . "', '" . $package_desc . "', '" . $package_start . "', '" . $package_end . "', '" . $package_price . "', '" . $package_location . "', '" . $is_hotel . "', '" . $is_transport . "', '" . $is_food . "', '" . $is_guide . "', '" . $package_capacity . "', '" . $map_loc . "', '" . $master_image . "', '" . $extra_image_1 . "', '" . $extra_image_2 . "')";
+
+        $this->conn->query($sql);
+
+        $this->conn->close();
+        return "200";
+    }
     public function getPackages($location, $start = 0, $end = 1000)
     {
         $this->connect();
         $location = mysqli_real_escape_string($this->conn, $location);
 
         if ($location == "All") {
-            $sql = "SELECT * FROM packages LIMIT $start,$end";
+            $sql = "SELECT * FROM packages ORDER BY package_id DESC LIMIT $start,$end";
         } else {
-            $sql = "SELECT * FROM packages WHERE package_location LIKE '%$location%' LIMIT $start,$end";
+            $sql = "SELECT * FROM packages WHERE package_location LIKE '%$location%' ORDER BY package_id DESC LIMIT $start,$end";
         }
 
         $result = $this->conn->query($sql);
@@ -40,6 +66,16 @@ class Packages extends Database
 
         $sql = "SELECT * FROM packages WHERE package_id = $id";
 
+        $result = $this->conn->query($sql);
+
+        $this->conn->close();
+        return $result;
+    }
+    public function updatePackagePurchase($id, $count)
+    {
+        $this->connect();
+
+        $sql = "UPDATE packages SET package_booked = $count WHERE package_id = $id";
         $result = $this->conn->query($sql);
 
         $this->conn->close();
@@ -98,9 +134,10 @@ class Auth extends Database
     public function createUser($username, $email, $pass)
     {
         $this->connect();
-        $sql = "INSERT INTO users(username, email, user_pass) VALUES ('$username','$email','$pass')";
+        $date_created = date("Y-m-d H:m:s");
+        $sql = "INSERT INTO users(username, email, user_pass, date_created) VALUES ('$username','$email','$pass','$date_created')";
+        $this->conn->query($sql);
         try {
-            $this->conn->query($sql);
             $this->conn->close();
             echo "200";
         } catch (mysqli_sql_exception) {
@@ -172,7 +209,13 @@ class Transactions extends Database
     public function getAllTransactions($limit = 1000)
     {
         $this->connect();
-        $sql = "SELECT * FROM transactions ORDER BY trans_date LIMIT $limit";
+        $sql = "SELECT * 
+            FROM transactions INNER JOIN users ON
+            transactions.user_id = users.id
+            INNER JOIN packages ON
+            transactions.package_id = packages.package_id 
+            ORDER BY trans_date 
+            LIMIT $limit";
         $result = $this->conn->query($sql);
 
         $this->conn->close();
@@ -196,6 +239,35 @@ class Transactions extends Database
         $this->conn->close();
         return $result;
     }
+    public function userAllTransactions($user_id)
+    {
+        $this->connect();
+        $sql = "SELECT * 
+                FROM transactions INNER JOIN packages ON
+                transactions.package_id = packages.package_id
+                WHERE user_id = $user_id 
+                ORDER BY trans_date";
+        $result = $this->conn->query($sql);
+
+        $this->conn->close();
+        return $result;
+    }
+    public function getUserTransaction($user_id, $package_id)
+    {
+        $this->connect();
+        $sql = "SELECT * 
+                FROM transactions INNER JOIN users ON
+                transactions.user_id = users.id
+                INNER JOIN packages ON
+                transactions.package_id = packages.package_id 
+                WHERE user_id = $user_id AND transactions.package_id = $package_id
+                ORDER BY trans_date
+                LIMIT 1";
+        $result = $this->conn->query($sql);
+
+        $this->conn->close();
+        return $result;
+    }
     public function getTotalTransactionAmount()
     {
         $this->connect();
@@ -208,10 +280,10 @@ class Transactions extends Database
         $this->conn->close();
         return $total;
     }
-    public function createNewTransaction($trans_id, $user_id, $package_id, $trans_amount, $trans_date, $card_no, $val_id)
+    public function createNewTransaction($trans_id, $user_id, $package_id, $trans_amount, $trans_date, $card_no, $val_id, $card_type)
     {
         $this->connect();
-        $sql = "INSERT INTO transactions (trans_id,user_id,package_id,trans_amount,trans_date,card_no,val_id) VALUES ('" . $trans_id . "'," . $user_id . "," . $package_id . "," . $trans_amount . ",'" . $trans_date . "','" . $card_no . "','" . $val_id . "')";
+        $sql = "INSERT INTO transactions (trans_id,user_id,package_id,trans_amount,trans_date,card_no,val_id,card_type) VALUES ('" . $trans_id . "'," . $user_id . "," . $package_id . "," . $trans_amount . ",'" . $trans_date . "','" . $card_no . "','" . $val_id . "','" . $card_type . "')";
         $this->conn->query($sql);
         $this->conn->close();
         return "200";

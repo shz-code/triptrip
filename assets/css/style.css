@@ -557,7 +557,7 @@ nav.navbar-white .fa-bars{
     position: relative;
     max-width: 500px;
     width: 100%;
-    margin: 100px auto 0;
+    margin: auto ;
 }
 .search-listing input{
     width: 100%;
@@ -668,7 +668,6 @@ nav.navbar-white .fa-bars{
     border-radius: 0.5rem;
 }
 .sidebar{
-    border: 1px solid #999;
     padding: 20px 30px;
     margin-top: 30px;
 }
@@ -1141,5 +1140,12 @@ nav.navbar-white .fa-bars{
     }
     .registration .btn-field button {
         width: 50%;
+    }
+}
+
+/* Print Invoice */
+@media print{
+    .print-btn{
+        display: none;
     }
 }

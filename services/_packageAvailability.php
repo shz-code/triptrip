@@ -19,10 +19,11 @@ if (isset($_POST['package_id'])) {
     $package_start = $row['package_start'];
     $curr_date = date("Y-m-d");
 
-    $datetime1 = date_create($package_start);
-    $datetime2 = date_create($curr_date);
-    $diff = date_diff($datetime1, $datetime2);
-    if ($diff->d < 1) {
+    $datetime1 = strtotime($package_start);
+    $datetime2 = strtotime($curr_date);
+
+    $diff = $datetime1 - $datetime2;
+    if ($diff * 86400 < 1) {
         die(header("HTTP/1.0 406 Finished"));
     }
 
