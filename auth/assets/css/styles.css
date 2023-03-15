@@ -340,6 +340,13 @@ ul{
 .cursor-pointer{
     cursor: pointer;
 }
+.container .content .cards .report-btn{
+    background: var(--primary-color);
+    color: var(--text-secondary);
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.329);
+    cursor: pointer;
+    font-size: 1.2rem;
+}
 /* New Package */
 
 .new-package-form{

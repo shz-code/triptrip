@@ -323,6 +323,32 @@ class Transactions extends Database
         $this->conn->close();
         return "200";
     }
+    public function getRangedTransitions($days)
+    {
+        $this->connect();
+        $sql =  "SELECT * 
+                FROM transactions INNER JOIN  users ON
+                transactions.user_id = users.id 
+                INNER JOIN  packages ON
+                transactions.package_id = packages.package_id
+                WHERE trans_date > CURRENT_DATE - INTERVAL $days day";
+        $result = $this->conn->query($sql);
+
+        $this->conn->close();
+        return $result;
+    }
+    public function getRangedTransitionsTotal($days)
+    {
+        $this->connect();
+        $sql = "SELECT * FROM transactions WHERE trans_date > CURRENT_DATE - INTERVAL $days day";
+        $result = $this->conn->query($sql);
+        $total = 0;
+        while ($row = mysqli_fetch_assoc($result)) {
+            $total += $row['trans_amount'];
+        }
+        $this->conn->close();
+        return $total;
+    }
 }
 
 class Testimonials extends Database

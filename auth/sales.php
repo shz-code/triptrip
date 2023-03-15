@@ -42,6 +42,16 @@ $totalAmount = $transactionsInstance->getTotalTransactionAmount();
                         <i class="fa-solid fa-money-bill-trend-up"></i>
                     </div>
                 </div>
+                <div class='card report-btn'>
+                    <div class='box'>
+                        <a href="./sales_pdf.php?param=7"> Generate report of last 7 days </a>
+                    </div>
+                </div>
+                <div class='card report-btn'>
+                    <div class='box'>
+                        <a href="./sales_pdf.php?param=30"> Generate report of last 30 days </a>
+                    </div>
+                </div>
             </div>
             <div class="content-2">
                 <div class="new-users">
