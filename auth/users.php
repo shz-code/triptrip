@@ -48,29 +48,45 @@ $usersCount = $usersInstance->getUsersCount();
                     <div class="title">
                         <h2>All Users</h2>
                     </div>
-                    <table>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Registration Date</th>
-                            <th>Account Status</th>
-                        </tr>
-                        <?php
-                        while ($user = mysqli_fetch_assoc($users)) {
-                            echo "
-                                <tr>
-                                    <td>" . $user['username'] . "</td>
-                                    <td>" . $user['email'] . "</td>
-                                    <td>" . $user['date_created'] . "</td>
-                                    <td>
-                                        <button class='btn'></button>
-                                        <button class='btn'></button>
-                                    </td>
-                                </tr>";
-                        }
-                        ?>
+                    <div class="table-container">
 
-                    </table>
+                        <table>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Registration Date</th>
+                                <th>Account Status</th>
+                            </tr>
+                            <?php
+                            while ($user = mysqli_fetch_assoc($users)) {
+                                if ($user['account_status'] == 1) $flag = true;
+                                else $flag = false;
+                                echo "
+                                <tr>
+                                <td>" . $user['username'] . "</td>
+                                <td>" . $user['email'] . "</td>
+                                <td>" . $user['date_created'] . "</td>
+                                <td>
+                                <form method='post' action='./services/_toggle_account_status.php'>";
+                                if ($flag) {
+                                    echo "
+                                    <input name='id' type='hidden' value='" . $user['id'] . "'>
+                                    <button type='submit' title='Click to toggle account status' class='cursor-pointer badge badge-success'>Active</button>
+                                    ";
+                                } else {
+                                    echo "
+                                    <input name='id' type='hidden' value='" . $user['id'] . "'>
+                                    <button type='submit' title='Click to toggle account status' class='cursor-pointer badge badge-danger'>Inactive</button>
+                                    ";
+                                }
+                                echo "</form>
+                                </td>
+                                </tr>";
+                            }
+                            ?>
+
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

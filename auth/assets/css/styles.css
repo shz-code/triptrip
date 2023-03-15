@@ -210,6 +210,10 @@ ul{
     border-radius: 0.5rem;
 }
 
+.container .content .content-2 .table-container{
+    overflow-x: scroll;
+}
+
 .container .content .content-2 .new-users table td,th{
     text-align: center;
 }
@@ -317,6 +321,25 @@ ul{
     }
 }
 
+/* Utilities */
+
+.badge{
+    color: var(--text-secondary);
+    border: none;
+    outline: none;
+    padding: 3px 6px;
+    border-radius: 1rem;
+}
+.badge.badge-success{
+    background: #198754;
+}
+.badge.badge-danger{
+    background: #dc3545;
+
+}
+.cursor-pointer{
+    cursor: pointer;
+}
 /* New Package */
 
 .new-package-form{

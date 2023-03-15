@@ -84,7 +84,7 @@ if (isset($_POST['newUser']) && isset($_POST['username']) && isset($_POST['email
         <h3>Welcome $username to triptrip. Travel Bangladesh like never before. <br>
         <a href='http://localhost/triptrip/listing.php'>Check our triptrip recommended packages</a> and start planning for your next trip!
         </div>";
-        smtp_mailer($email, 'Account Verification', $mailHtml);
+        // smtp_mailer($email, 'Account Verification', $mailHtml);
         echo '200';
     }
 }

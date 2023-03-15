@@ -30,6 +30,12 @@ if (isset($_POST["loginUser"]) && isset($_POST['email']) && isset($_POST['pass']
         die(header("HTTP/1.0 406 Not Acceptable Password."));
     }
 
+    if (!$auth->checkAccountStatus($email)) {
+        die(header("HTTP/1.0 403 Account Deactivated"));
+    }
+
+
+
     // Paswword Encryption
     $pass = sha1($pass);
 

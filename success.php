@@ -1,6 +1,45 @@
 <?php
-
 include_once("./app/_dbConnection.php");
+
+// SMTP MAILER
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require './services/phpmailer/src/Exception.php';
+require './services/phpmailer/src/PHPMailer.php';
+require './services/phpmailer/src/SMTP.php';
+
+function smtp_mailer($to, $subject, $msg)
+{
+    $mail = new PHPMailer();
+    try {
+        //Server settings
+        $mail->isSMTP(); //Send using SMTP
+        $mail->Host = 'smtp.gmail.com'; //Set the SMTP server to send through
+        $mail->SMTPAuth = true; //Enable SMTP authentication
+        $mail->Username = ''; //SMTP username
+        $mail->Password = ''; //SMTP password
+        $mail->SMTPSecure = 'tls'; //Enable  TLS encryption
+        $mail->Port = 587; //TCP port to connect to
+
+        //Recipients
+        $mail->setFrom('');
+        $mail->addAddress($to); //Add a recipient
+
+        //Content
+        $mail->isHTML(true); //Set email format to HTML
+        $mail->Subject = $subject;
+        $mail->Body = $msg;
+
+        if ($mail->send())
+            null;
+        else
+            die(header("HTTP/1.0 500 Internal Server Error Email"));
+    } catch (Exception $e) {
+        die(header("HTTP/1.0 500 Internal Server Error Email"));
+    }
+}
+
 
 $val_id = urlencode($_POST['val_id']);
 $store_id = urlencode("rooki64087f61151b1");
@@ -42,7 +81,11 @@ if ($code == 200 && !(curl_errno($handle))) {
     $count = $package['package_booked'];
     $count = $count + 1;
     $packagesInstance->updatePackagePurchase($package_id, $count);
-    echo var_dump($result);
+    $mailHtml = "<div>
+    <h3>You Purchase of Taka <b>" . $amount . "</b> via <b>" . $card_type . "</b> has been successfully confirmed. <br>
+    <a href='http://localhost/triptrip/auth/user_dashboard.php'>Visit your dashboard</a> to check your purchase confirmation.
+    </div>";
+    // smtp_mailer($email, 'Account Verification', $mailHtml);
 } else {
 
     echo "Failed to connect with SSLCOMMERZ";

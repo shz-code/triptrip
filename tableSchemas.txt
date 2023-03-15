@@ -10,7 +10,8 @@ CREATE TABLE `users` (
 	`phone` VARCHAR(15) NULL DEFAULT NULL  ,
 	`address` TEXT NULL DEFAULT NULL  ,
 	`full_name` VARCHAR(255) NULL DEFAULT NULL ,
-	PRIMARY KEY (`id`) USING BTREE
+	PRIMARY KEY (`id`)
+	`account_status` INT(10) NULL DEFAULT '1',
 );
 
 Packages Table:
@@ -34,7 +35,7 @@ CREATE TABLE `packages` (
 	`master_image` TEXT NULL DEFAULT NULL,
 	`extra_image_1` TEXT NULL DEFAULT NULL,
 	`extra_image_2` TEXT NULL DEFAULT NULL,
-	PRIMARY KEY (`package_id`) USING BTREE
+	PRIMARY KEY (`package_id`)
 )
 ;
 

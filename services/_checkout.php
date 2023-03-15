@@ -9,9 +9,9 @@ $packageInstance = new Packages();
 $res = $packageInstance->getPackage($_GET['package']);
 $package = mysqli_fetch_assoc($res);
 
-echo var_dump($user);
-echo "<br>";
-echo var_dump($package);
+// echo var_dump($user);
+// echo "<br>";
+// echo var_dump($package);
 
 
 /* PHP */

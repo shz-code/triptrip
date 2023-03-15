@@ -147,6 +147,19 @@ class Auth extends Database
             die(header("HTTP/1.0 500 Internal Server Error"));
         }
     }
+    public function checkAccountStatus($email)
+    {
+        $this->connect();
+        $sql = "SELECT * FROM users WHERE email = '" . $email . "' ";
+        $result = $this->conn->query($sql);
+        $this->conn->close();
+
+        $user = mysqli_fetch_assoc($result);
+        if ($user['account_status'] == 0) {
+            return false;
+        }
+        return true;
+    }
     public function loginUser($email, $pass)
     {
         $this->connect();
@@ -209,6 +222,16 @@ class Users extends Database
         $this->connect();
         $sql = "UPDATE users 
                 SET email = '$email', phone = '$phone', address = '$address', full_name = '$name' 
+                WHERE id = $user_id";
+        $this->conn->query($sql);
+        $this->conn->close();
+        return '200';
+    }
+    public function updateAccountStatus($user_id, $status)
+    {
+        $this->connect();
+        $sql = "UPDATE users 
+                SET account_status = $status
                 WHERE id = $user_id";
         $this->conn->query($sql);
         $this->conn->close();

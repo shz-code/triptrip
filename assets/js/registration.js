@@ -45,6 +45,7 @@ $("#signinBtn").click((e) => {
           },
         error: (data) => {
           if (data.statusText === "User Not Found") alert("danger", "User Not Found");
+          else if(data.statusText === "Account Deactivated") alert("danger", "Account Deactivated. Contact with authority");
           else alert("danger", "Error! Try Again Later.");
           
           $("#signinBtn").html("Sign In");
