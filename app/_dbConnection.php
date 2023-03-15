@@ -17,9 +17,11 @@ class Database
 }
 
 /*
-    Known error:
-    Two users purchase a product at the same time not handled.
-    User purchasing same package multiple times not handled.
+    Known bugs:
+    * Package price can be negative
+    * Two users purchase a product at the same time not handled.
+    * User purchasing same package multiple times not handled.
+    * One user can add multiple reviews on same package
 */
 
 class Packages extends Database
@@ -202,6 +204,16 @@ class Users extends Database
         $this->conn->close();
         return $result->num_rows;
     }
+    public function updateUser($user_id, $email, $phone, $name, $address,)
+    {
+        $this->connect();
+        $sql = "UPDATE users 
+                SET email = '$email', phone = '$phone', address = '$address', full_name = '$name' 
+                WHERE id = $user_id";
+        $this->conn->query($sql);
+        $this->conn->close();
+        return '200';
+    }
 }
 
 class Transactions extends Database
@@ -287,5 +299,61 @@ class Transactions extends Database
         $this->conn->query($sql);
         $this->conn->close();
         return "200";
+    }
+}
+
+class Testimonials extends Database
+{
+    public function getAllTestimonials($limit = 1000)
+    {
+        $this->connect();
+        $sql = "SELECT * 
+            FROM testimonials INNER JOIN users ON
+            testimonials.user_id = users.id
+            INNER JOIN packages ON
+            testimonials.package_id = packages.package_id 
+            ORDER BY testimonials.date_created DESC
+        LIMIT $limit";
+        $result = $this->conn->query($sql);
+
+        $this->conn->close();
+        return $result;
+    }
+    public function getPackageTestimonials($package_id, $limit = 1000)
+    {
+        $this->connect();
+        $sql = "SELECT * 
+            FROM testimonials INNER JOIN users ON
+            testimonials.user_id = users.id
+            INNER JOIN packages ON
+            testimonials.package_id = packages.package_id 
+            WHERE  testimonials.package_id = $package_id
+            ORDER BY testimonials.date_created DESC
+            LIMIT $limit";
+        $result = $this->conn->query($sql);
+
+        $this->conn->close();
+        return $result;
+    }
+    public function checkUserTestimonialStatus($user_id)
+    {
+        $this->connect();
+        $sql = "SELECT DISTINCT package_id 
+            FROM testimonials 
+            WHERE user_id = $user_id";
+        $result = $this->conn->query($sql);
+
+        $this->conn->close();
+        return $result;
+    }
+    public function addTestimonial($desc, $user_id, $package_id, $rating)
+    {
+        $this->connect();
+        $desc = mysqli_real_escape_string($this->conn, $desc);
+        $sql = "INSERT INTO testimonials (message,user_id,package_id,rating) VALUES('$desc',$user_id,$package_id,$rating)";
+        $this->conn->query($sql);
+
+        $this->conn->close();
+        return '200';
     }
 }

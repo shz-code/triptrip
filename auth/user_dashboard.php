@@ -33,7 +33,20 @@ $full_name = $user['full_name'];
 <!-- User Purchases -->
 <?php
 $transactionInstance = new Transactions();
-$transactions = $transactionInstance->userAllTransactions($user_id);
+$res = $transactionInstance->userAllTransactions($user_id);
+$transactions = array();
+while ($row = mysqli_fetch_assoc($res)) {
+    array_push($transactions, $row);
+}
+?>
+<!-- User Review Checks -->
+<?php
+$testimonialInstance = new Testimonials();
+$res = $testimonialInstance->checkUserTestimonialStatus($user_id);
+$testimonials = array();
+while ($row = mysqli_fetch_assoc($res)) {
+    array_push($testimonials, $row['package_id']);
+}
 ?>
 
 <head>
@@ -110,7 +123,6 @@ $transactions = $transactionInstance->userAllTransactions($user_id);
                                 </div>
                             </div>
                             <hr>
-                            <hr>
                             <div>
                                 <div>
                                     <h6 class="mb-0">Address</h6>
@@ -122,7 +134,7 @@ $transactions = $transactionInstance->userAllTransactions($user_id);
                             <hr>
                             <div>
                                 <div>
-                                    <a class="btn btn-cus" target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
+                                    <a class="btn btn-cus" href="./user_update.php">Edit</a>
                                 </div>
                             </div>
                         </div>
@@ -142,25 +154,32 @@ $transactions = $transactionInstance->userAllTransactions($user_id);
                     <th scope="col">Package Name</th>
                     <th scope="col">Payment Amount</th>
                     <th scope="col">Generate Invoice</th>
+                    <th scope="col">Review</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                while ($row = mysqli_fetch_assoc($transactions)) {
+                foreach ($transactions as $record) {
+                    $flag = false;
+                    if (in_array($record['package_id'], $testimonials)) $flag = true;
+                    else $flag = false;
                     echo "
-                    <tr>
-                        <th scope='row'>" . $row['trans_date'] . "</th>
-                        <td>" . $row['trans_id'] . "</td>
-                        <td>" . $row['card_type'] . "</td>
-                        <td>" . $row['package_name'] . "</td>
-                        <td>" . $row['trans_amount'] . "</td>
+                        <tr>
+                        <th scope='row'>" . $record['trans_date'] . "</th>
+                        <td>" . $record['trans_id'] . "</td>
+                        <td>" . $record['card_type'] . "</td>
+                        <td>" . $record['package_name'] . "</td>
+                        <td>" . $record['trans_amount'] . "</td>
                         <td>
-                        <a href='./generatePDF.php?package_id=" . $row['package_id'] . "&user_id=" . $user_id . "'>
-                            Ck
+                        <a href='./generatePDF.php?package_id=" . $record['package_id'] . "&user_id=" . $user_id . "'>
+                        Ck
                         </a>
-                        </td>
-                    </tr>
-                    ";
+                        </td>";
+                    if ($flag) {
+                        echo "<td class='bg-success text-light fw-bold'>Done</td>";
+                    } else echo "<td class='bg-secondary text-light fw-bold'><a href='./user_review.php?id=" . $record['package_id'] . "'>Write Review</a></td>";
+                    echo "</tr>
+                        ";
                 }
                 ?>
             </tbody>

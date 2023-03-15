@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php include "./components/_head.php" ?>
+
+<head>
+    <?php include "./components/_head.php" ?>
+    <title>Triptrip</title>
+</head>
 
 <body>
     <div class="header">

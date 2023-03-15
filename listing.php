@@ -3,11 +3,13 @@ if (!isset($_SESSION)) {
     session_start();
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang='en'>
-<?php include_once './app/_dbConnection.php' ?>
+
+<head>
+    <?php include_once './app/_dbConnection.php' ?>
+    <title>Triptrip - Listings</title>
+</head>
 <?php include './components/_head.php' ?>
 <?php
 // error_reporting(0);

@@ -1,14 +1,18 @@
-<!DOCTYPE html>
-<html lang='en'>
-
 <?php
 if (!isset($_SESSION)) {
     session_start();
 }
 ?>
+<!DOCTYPE html>
+<html lang='en'>
 
-<?php include './components/_head.php';
-include_once './app/_dbConnection.php';
+<head>
+    <?php include './components/_head.php' ?>
+    <title>Triptrip - Package</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+    <link rel="stylesheet" href="./assets/css/package.css">
+</head>
+<?php include_once './app/_dbConnection.php';
 
 if (isset($_GET['id'])) {
     $package_id = ($_GET['id']);
@@ -29,6 +33,8 @@ if (isset($_SESSION['logged_in'])) {
     $ckUser = $transaction->num_rows;
 }
 ?>
+
+<?php include("./utilities/countStars.php") ?>
 
 <body>
     <nav id='navBar' class='navbar-white'>
@@ -52,23 +58,7 @@ if (isset($_SESSION['logged_in'])) {
 
         $location = $row["map_loc"];
         // Handle rating starts
-        $stars = "";
-        $cmp_stars = 0;
-        // Full Stars
-        for ($i = 1; $i <= $row['package_rating']; $i++) {
-            $stars .= "<i class='fa-solid fa-star'></i>";
-            $cmp_stars++;
-        }
-        // Half Start
-        $half_star = $row['package_rating'] - $cmp_stars;
-        if ($half_star < 1 && $half_star > 0) {
-            $stars .= "<i class='fa-solid fa-star-half-stroke'></i>";
-        }
-        // Remaining Starts
-        $rem_stars = 5 - $row['package_rating'];
-        for ($i = 1; $i <= $rem_stars; $i++) {
-            $stars .= "<i class='fa-regular fa-star'></i>";
-        }
+        $stars = countStars($row['package_rating']);
         // Package Features
         $features = "<ul class='details-list'>";
         if ($row["is_hotel"] == 1) {
@@ -175,9 +165,68 @@ if (isset($_SESSION['logged_in'])) {
     </div>";
     }
     ?>
-    <!-- ==================footer====================== -->
+    <?php
+    $testimonialInstance = new Testimonials();
+    $testimonials = $testimonialInstance->getPackageTestimonials($package_id);
+    ?>
+    <!-- Reviews  -->
+    <div class='what-say'>
+        <div class='container'>
+            <h3><?php
+                if ($testimonials->num_rows > 0) {
+                    echo "What People Say";
+                } else echo "No Reviews Yet";
+                ?></h3>
+            <div class='row'>
+                <div class='col-md-12'>
+                    <div id='testimonial-slider' class='owl-carousel'>
+                        <?php
+                        while ($row = mysqli_fetch_assoc($testimonials)) {
+                            $stars = countStars($row['rating']);
+                            echo "
+                                <div class='testimonial'>
+                                <div class='testimonial-content'>
+                                <div class='testimonial-icon'>
+                                <i class='fa fa-quote-left'></i>
+                                </div>
+                                <p class='description'>
+                                " . $row['message'] . "
+                                </p>
+                                <p class='testimonial-rating'>
+                                " . $stars . "
+                                </p>
+                                </div>
+                                <h3 class='title'> " . $row['full_name'] . "</h3>
+                                </div>
+                                ";
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
     <?php include "./components/_footer.php" ?>
     <?php include './components/_js.php' ?>
+    <script src="./assets/js/package.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#testimonial-slider").owlCarousel({
+                items: 3,
+                itemsDesktop: [1000, 3],
+                itemsDesktopSmall: [980, 2],
+                itemsTablet: [768, 2],
+                itemsMobile: [650, 1],
+                pagination: true,
+                navigation: false,
+                slideSpeed: 1000,
+                autoPlay: true
+            });
+        });
+    </script>
     <script>
         let urlParams = new URLSearchParams(location.search);
         packageId = urlParams.get('id');
@@ -195,7 +244,7 @@ if (isset($_SESSION['logged_in'])) {
                 success: (data) => {
                     data = JSON.parse(data);
                     if (data > 0) {
-                        $(".status-msg").html(`Available for booking. <a href=<?php echo "./services/_checkout.php?package=" . $row['package_id'] . "&user=" . $_SESSION['user_id'] ?>>Click here to proceed booking.</a>`);
+                        $(".status-msg").html(`Available for booking. <a href=<?php echo "./services/_checkout.php?package=" . $package_id . "&user=" . $_SESSION['user_id'] ?>>Click here to proceed booking.</a>`);
                     } else {
                         $(".status-msg").html("Sorry this package is already full.")
                     }
@@ -212,6 +261,7 @@ if (isset($_SESSION['logged_in'])) {
             });
         })
     </script>
+
 
 </body>
 

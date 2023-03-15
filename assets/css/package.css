@@ -1,0 +1,309 @@
+:root{
+    --primary-color: #FF5361;
+    --text-primary: #000;
+    --text-secondary: #fff;
+    --bg-shade: #F6F6F6;
+}
+
+/* ==================Package-details page========== */
+.package-details{
+    padding: 0 12%;
+}
+.package-title{
+    margin-top: 50px;
+}
+.package-title h1{
+    font-weight: 600;
+}
+.package-title .row{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 10px 0;
+}
+.package-title span{
+    margin: 0 20px;
+}
+.package-title i{
+    color: var(--primary-color);
+    font-size: 14px;
+}
+.gallery{
+    display: grid;
+    grid-gap: 0.5rem;
+    grid-template-columns: 2fr 1fr;
+    margin: 20px 0;
+    width: 100%;
+}
+.gallery-img-1 img{
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+}
+.gallery-img-grp{
+    display: grid;
+    height: 100%;
+    row-gap: 0.5rem;
+}
+.gallery-img-grp img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.small-details h2{
+  font-weight: 500;  
+}
+.small-details h4{
+    text-align: right;
+    font-size: 22px;
+}
+.line{
+    border: 0;
+    height: 1px;
+    background: #ccc;
+    width: 100%;
+    max-width: 800px;
+    margin: 20px 0 50px;
+}
+.check-form{
+    margin:30px 0 ;
+    background: #fff;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 10px 50px;
+    text-align: center;
+}
+.check-form p{
+    margin: 10px 0;
+}
+.check-form label{
+    display: block;
+    font-size: 1.3rem;
+    text-align: center;
+}
+.check-form div{
+    padding: 20px;
+    max-width: 300px;
+    width: 100%;
+}
+.check-form #guest-select{
+    background: transparent;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid var(--primary-color);
+    outline: none;
+    font-size: 1.1rem;
+    text-align: center;
+}
+.check-form button{
+    background: var(--primary-color);
+    border: 0;
+    outline: none;
+    color: #fff;
+    padding: 18px;
+    max-width: 350px;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.details-list{
+    list-style: none;
+    margin: 50px 0;
+}
+.details-list li{
+    margin-left: 50px;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: #555;
+    position: relative;
+}
+.details-list li span{
+    display: block;
+    font-weight: 400;
+    font-size: 16px;
+}
+.details-list li i{
+    position: absolute;
+    top: 5px;
+    left: -40px;
+}
+.package-desc{
+    max-width: 700px;
+    margin-bottom: 50px;
+}
+.map{
+    margin: 50px 0;
+}
+.map iframe{
+   width: 100%;
+   margin-bottom: 30px; 
+}
+.map h3{
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+.map b{
+    display: block;
+    margin-bottom: 16px;
+}
+
+/* Testimonial */
+.what-say {
+    background: var(--bg-shade);
+    padding: 20px 0;
+}
+
+.what-say h3{
+    font-size: 26px;
+    font-weight: 500;
+}
+
+.testimonial {
+    margin: 20px 20px 40px;
+}
+.testimonial-rating i {
+    color: var(--primary-color);
+    font-size: 14px;
+}
+
+.testimonial .testimonial-content {
+    padding: 35px 25px 35px 50px;
+    margin-bottom: 35px;
+    background: #fff;
+    position: relative;
+}
+
+.testimonial .testimonial-content:before {
+    content: "";
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+    border-top: 15px solid #718076;
+    border-left: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+}
+
+.testimonial .testimonial-content:after {
+    content: "";
+    position: absolute;
+    bottom: -30px;
+    right: 0;
+    border-top: 15px solid #718076;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+}
+
+.testimonial-content .testimonial-icon {
+    width: 50px;
+    height: 45px;
+    background: var(--primary-color);
+    text-align: center;
+    font-size: 22px;
+    color: #fff;
+    line-height: 42px;
+    position: absolute;
+    top: 37px;
+    left: -19px;
+}
+
+.testimonial-content .testimonial-icon:before {
+    content: "";
+    border-bottom: 16px solid var(--primary-color);
+    border-left: 18px solid transparent;
+    position: absolute;
+    top: -16px;
+    left: 1px;
+}
+
+.testimonial .description {
+    font-size: 15px;
+    font-style: italic;
+    color: #8a8a8a;
+    line-height: 23px;
+    margin: 0;
+}
+
+.testimonial .title {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    margin: 0 0 5px 0;
+}
+
+.owl-theme .owl-controls {
+    margin-top: 20px;
+}
+
+.owl-theme .owl-controls .owl-page span {
+    background: #ccc;
+    opacity: 1;
+    transition: all 0.4s ease 0s;
+}
+
+.owl-theme .owl-controls .owl-page.active span,
+.owl-theme .owl-controls.clickable .owl-page:hover span {
+    background: var(--primary-color);
+}
+
+
+/* =============small screen divices for package ditails page================== */
+@media only screen and (max-width:700px){
+    .package-details{
+        margin-top:150px;
+    }
+    .row p{
+        margin-top:10px;
+    }
+    .gallery{
+        grid-template-areas: "first first" ". ." ". .";
+    }
+    .small-ditails h2{
+        font-size: 20px;
+        margin-top: 24px;
+    }
+    .small-ditails h4{
+        text-align: left;
+        width: 10px 0;
+        font-size: 18px;
+    }
+    .check-form{
+        padding: 10px 30px;
+    }
+    .check-form div{
+        padding: 20px 0;
+        width: 100%;
+    }
+    .check-form input{
+        border-bottom: 1px solid #ccc;
+        width: 100%;
+        padding-bottom: 5px;
+
+    }
+    .check-form button{
+        font-size: 14px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+    }
+    .host{
+        display: block;
+        line-height: 28px;
+    }
+    .contact-host{
+        margin: 40px 0;
+    }
+    .gallery{
+        grid-template-columns: 1fr;
+    }
+    .gallary-img-grp{
+        display: none;
+    }
+}
