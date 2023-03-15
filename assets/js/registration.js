@@ -84,6 +84,7 @@ $("#signupBtn").click((e) => {
           pass: pass,
         },
         success: (data) => {
+          console.log(data);
           if (data === "200")
           {
             alert("success", "Registration Successful. Please log in");

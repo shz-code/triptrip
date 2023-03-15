@@ -137,11 +137,11 @@ class Auth extends Database
     {
         $this->connect();
         $date_created = date("Y-m-d H:m:s");
-        $sql = "INSERT INTO users(username, email, user_pass, date_created) VALUES ('$username','$email','$pass','$date_created')";
-        $this->conn->query($sql);
         try {
+            $sql = "INSERT INTO users(username, email, user_pass, date_created) VALUES ('$username','$email','$pass','$date_created')";
+            $this->conn->query($sql);
             $this->conn->close();
-            echo "200";
+            return "200";
         } catch (mysqli_sql_exception) {
             $this->conn->close();
             die(header("HTTP/1.0 500 Internal Server Error"));
