@@ -95,7 +95,7 @@ if (!isset($_SESSION['is_admin'])) {
                                     <p>Tour Start: " . $activePackage['package_start'] . "</p>
                                 </div>
                                 <div class='btn'>
-                                    <a href=''>View</a>
+                                    <a  href='../package.php?id=" . $activePackage['package_id'] . "'>View</a>
                                 </div>
                             </div>
                             </div>
@@ -141,7 +141,7 @@ if (!isset($_SESSION['is_admin'])) {
                                     <p>Tour Start: " . $prevPackage['package_start'] . "</p>
                                 </div>
                                 <div class='btn'>
-                                    <a href=''>View</a>
+                                    <a  href='../package.php?id=" . $prevPackage['package_id'] . "'>View</a>
                                 </div>
                             </div>
                             </div>

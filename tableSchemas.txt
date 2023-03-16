@@ -52,8 +52,6 @@ CREATE TABLE `transactions` (
 	`val_id` VARCHAR(255) NULL DEFAULT NULL,
 	`card_type` VARCHAR(255) NULL DEFAULT NULL,
 	PRIMARY KEY (`id`),
-	`user_id` (`user_id`),
-	`package_id` (`package_id`),
 	FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
 	FOREIGN KEY (`package_id`) REFERENCES `packages` (`package_id`)
 )

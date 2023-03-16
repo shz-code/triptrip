@@ -17,12 +17,12 @@ if (!isset($_SESSION["is_admin"])) {
 <?php include("./components/_head.php");
 include_once("../app/_dbConnection.php");
 $usersInstance = new Users();
-$users = $usersInstance->getAllUsers(5);
+$users = $usersInstance->getAllUsers(3);
 $usersCount = $usersInstance->getUsersCount();
 $packages = new Packages();
 $packagesCount = $packages->getPackagesCount();
 $transactionsInstance = new Transactions();
-$transactions = $transactionsInstance->getAllTransactions(2);
+$transactions = $transactionsInstance->getAllTransactions(3);
 $totalAmount = $transactionsInstance->getTotalTransactionAmount();
 ?>
 
@@ -78,7 +78,7 @@ $totalAmount = $transactionsInstance->getTotalTransactionAmount();
                             <th>Name</th>
                             <th>Package</th>
                             <th>Amount</th>
-                            <th>Details</th>
+                            <th>Payment Time</th>
                         </tr>
                         <?php
                         while ($row = mysqli_fetch_assoc($transactions)) {
@@ -87,7 +87,7 @@ $totalAmount = $transactionsInstance->getTotalTransactionAmount();
                                     <td>" . $row['username'] . "</td>
                                     <td>" . $row['package_name'] . "</td>
                                     <td>" . $row['trans_amount'] . " Taka</td>
-                                    <td><a href='#' class='btn'>View</a></td>
+                                    <td>" . $row['trans_date'] . " Taka</td>
                                 </tr>
                                 ";
                         }
@@ -103,6 +103,7 @@ $totalAmount = $transactionsInstance->getTotalTransactionAmount();
                         <tr>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Reg Time</th>
                         </tr>
                         <?php
                         while ($user = mysqli_fetch_assoc($users)) {
@@ -110,6 +111,7 @@ $totalAmount = $transactionsInstance->getTotalTransactionAmount();
                                 <tr>
                                     <td>" . $user['username'] . "</td>
                                     <td>" . $user['email'] . "</td>
+                                    <td>" . $user['date_created'] . "</td>
                                 </tr>";
                         }
                         ?>

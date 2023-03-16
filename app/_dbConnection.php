@@ -73,16 +73,6 @@ class Packages extends Database
         $this->conn->close();
         return $result;
     }
-    public function updatePackagePurchase($id, $count)
-    {
-        $this->connect();
-
-        $sql = "UPDATE packages SET package_booked = $count WHERE package_id = $id";
-        $result = $this->conn->query($sql);
-
-        $this->conn->close();
-        return $result;
-    }
     public function getPackagesCount()
     {
         $this->connect();
@@ -101,6 +91,26 @@ class Packages extends Database
         $result = $this->conn->query($sql);
         $this->conn->close();
         return $result->num_rows;
+    }
+    public function updatePackagePurchase($id, $count)
+    {
+        $this->connect();
+
+        $sql = "UPDATE packages SET package_booked = $count WHERE package_id = $id";
+        $this->conn->query($sql);
+
+        $this->conn->close();
+        return '200';
+    }
+    public function updateRating($id, $rating)
+    {
+        $this->connect();
+
+        $sql = "UPDATE packages SET package_rating = $rating WHERE package_id = $id";
+        $this->conn->query($sql);
+
+        $this->conn->close();
+        return '200';
     }
 }
 
@@ -155,7 +165,7 @@ class Auth extends Database
         $this->conn->close();
 
         $user = mysqli_fetch_assoc($result);
-        if ($user['account_status'] == 0) {
+        if ($result->num_rows > 0 && $user['account_status'] == 0) {
             return false;
         }
         return true;

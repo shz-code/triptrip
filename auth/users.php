@@ -49,10 +49,11 @@ $usersCount = $usersInstance->getUsersCount();
                         <h2>All Users</h2>
                     </div>
                     <div class="table-container">
-
                         <table>
                             <tr>
-                                <th>Name</th>
+                                <th>Username</th>
+                                <th>Full Name</th>
+                                <th>Phone</th>
                                 <th>Email</th>
                                 <th>Registration Date</th>
                                 <th>Account Status</th>
@@ -64,6 +65,8 @@ $usersCount = $usersInstance->getUsersCount();
                                 echo "
                                 <tr>
                                 <td>" . $user['username'] . "</td>
+                                <td>" . $user['full_name'] . "</td>
+                                <td>" . $user['phone'] . "</td>
                                 <td>" . $user['email'] . "</td>
                                 <td>" . $user['date_created'] . "</td>
                                 <td>
@@ -84,7 +87,6 @@ $usersCount = $usersInstance->getUsersCount();
                                 </tr>";
                             }
                             ?>
-
                         </table>
                     </div>
                 </div>

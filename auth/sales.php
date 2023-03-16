@@ -63,7 +63,7 @@ $totalAmount = $transactionsInstance->getTotalTransactionAmount();
                             <th>Name</th>
                             <th>Package</th>
                             <th>Amount</th>
-                            <th>Details</th>
+                            <th>Method</th>
                         </tr>
                         <?php
                         while ($row = mysqli_fetch_assoc($transactions)) {
@@ -72,7 +72,7 @@ $totalAmount = $transactionsInstance->getTotalTransactionAmount();
                                     <td>" . $row['username'] . "</td>
                                     <td>" . $row['package_name'] . "</td>
                                     <td>" . $row['trans_amount'] . " Taka</td>
-                                    <td><a href='#' class='btn'>View</a></td>
+                                    <td>" . $row['card_type'] . "</td>
                                 </tr>
                                 ";
                         }

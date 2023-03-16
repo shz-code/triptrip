@@ -36,7 +36,6 @@ $row_count = $transactions->num_rows;
 
 <head>
     <?php include("./components/_bootstrapHead.php") ?>
-    <link rel="stylesheet" href="style.css">
     <title>Package Review</title>
     <style>
         .form-control:focus {
@@ -49,7 +48,7 @@ $row_count = $transactions->num_rows;
 
 <body>
     <nav id='navBar' class='navbar-white'>
-        <a href='./index.php' class='logo'> triptrip </a>
+        <a href='../index.php' class='logo'> triptrip </a>
         <ul class='nav-links'>
             <li><a href='../index.php'>Popular Places</a></li>
             <li><a href='../listing.php'>All packages</a></li>
@@ -96,7 +95,7 @@ $row_count = $transactions->num_rows;
                         <hr>
                         <div class="row">
                             <label class="form-label" for="rating">Rating</label>
-                            <input required class="form-control px-2" placeholder="4.8" type="number" name="rating" min=1 max=5>
+                            <input required class="form-control px-2 rating_input" placeholder="Rate this package (1.0 - 5.0)" type="text" name="rating">
                         </div>
                         <input required type="hidden" name="package_id" value="<?php echo $package_id ?>">
                         <hr>
@@ -122,6 +121,19 @@ $row_count = $transactions->num_rows;
         </div>
     </div>
     <?php include("../components/_footer.php") ?>
+    <script>
+        document.querySelector(".review-form").addEventListener("submit", (e) => {
+            e.preventDefault();
+            document.querySelector(".rating_input").classList.remove("is-invalid");
+            let val = document.querySelector(".rating_input").value;
+            val = Number(val);
+            if (val >= 1 && val <= 5) {
+                document.querySelector(".review-form").submit();
+            } else {
+                document.querySelector(".rating_input").classList.add("is-invalid");
+                document.querySelector(".rating_input").value = "";
+            }
+        })
     </script>
 </body>
 

@@ -29,7 +29,6 @@ $full_name = $user['full_name'];
 
 <head>
     <?php include("./components/_bootstrapHead.php") ?>
-    <link rel="stylesheet" href="style.css">
     <title>Package Review</title>
     <style>
         .form-control:focus {
@@ -42,7 +41,7 @@ $full_name = $user['full_name'];
 
 <body>
     <nav id='navBar' class='navbar-white'>
-        <a href='./index.php' class='logo'> triptrip </a>
+        <a href='../index.php' class='logo'> triptrip </a>
         <ul class='nav-links'>
             <li><a href='../index.php'>Popular Places</a></li>
             <li><a href='../listing.php'>All packages</a></li>
@@ -101,7 +100,6 @@ $full_name = $user['full_name'];
         </div>
     </div>
     <?php include("../components/_footer.php") ?>
-    </script>
 </body>
 
 </html>

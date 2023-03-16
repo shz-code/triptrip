@@ -63,6 +63,7 @@ img{
 
 table {
     padding: 10px;
+    width: 100%;
 }
 
 th,
@@ -216,10 +217,6 @@ ul{
 
 .container .content .content-2 .new-users table td,th{
     text-align: center;
-}
-
-.container .content .content-2 .new-users table td{
-    cursor: pointer;
 }
 .container .content .content-2 .packages-container{
     display: grid;

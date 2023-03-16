@@ -19,6 +19,11 @@ if (isset($_GET['id'])) {
 } else {
     $package_id = 0;
 }
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+} else {
+    $user_id = 0;
+}
 
 $packages = new Packages();
 
@@ -117,7 +122,6 @@ if (isset($_SESSION['logged_in'])) {
                 </div>
             </div>
         </div>";
-
         echo "
         <div class='gallery'>
             <div class='gallery-img-1'><img src=" . $row['master_image'] . "></div>
@@ -155,7 +159,11 @@ if (isset($_SESSION['logged_in'])) {
                     <h3>Location On</h3>
                     <iframe
                         src=" . $location . "
-                        width='600' height='450' style='border:0;' allowfullscreen='' loading='lazy'
+                        width='600' 
+                        height='450' 
+                        style='border:0' 
+                        allowfullscreen='' 
+                        loading='lazy'
                         referrerpolicy='no-referrer-when-downgrade'>
                     </iframe>
                     <b>" . $row['package_location'] . "</b>
@@ -209,7 +217,6 @@ if (isset($_SESSION['logged_in'])) {
     <!-- Footer -->
     <?php include "./components/_footer.php" ?>
     <?php include './components/_js.php' ?>
-    <script src="./assets/js/package.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
     <script>
@@ -244,7 +251,7 @@ if (isset($_SESSION['logged_in'])) {
                 success: (data) => {
                     data = JSON.parse(data);
                     if (data > 0) {
-                        $(".status-msg").html(`Available for booking. <a href=<?php echo "./services/_checkout.php?package=" . $package_id . "&user=" . $_SESSION['user_id'] ?>>Click here to proceed booking.</a>`);
+                        $(".status-msg").html(`Available for booking. <a href=<?php echo "./services/_checkout.php?package=" . $package_id . "&user=" . $user_id ?>>Click here to proceed booking.</a>`);
                     } else {
                         $(".status-msg").html("Sorry this package is already full.")
                     }
