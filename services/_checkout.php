@@ -22,7 +22,7 @@ $post_data['total_amount'] = $package['package_price'];
 $post_data['currency'] = "BDT";
 $post_data['tran_id'] = "SSLCZ_TEST_" . uniqid();
 $post_data['success_url'] = "http://localhost/triptrip/success.php";
-$post_data['fail_url'] = "http://localhost/new_sslcz_gw/fail.php";
+$post_data['fail_url'] = "http://localhost/triptrip/fail.php";
 $post_data['cancel_url'] = "http://localhost/new_sslcz_gw/cancel.php";
 # $post_data['multi_card_name'] = "mastercard,visacard,amexcard";  # DISABLE TO DISPLAY ALL AVAILABLE
 

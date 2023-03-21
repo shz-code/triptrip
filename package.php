@@ -115,7 +115,7 @@ if (isset($_SESSION['logged_in'])) {
             <div class='row'>
                 <div>
                     " . $stars . "
-                    <span>" . $row["package_rating"] . "</span>
+                    <span>" . number_format((float) $row["package_rating"], 1, '.', '')  . "</span>
                 </div>
                 <div>
                     <p>Location:<span>" . $row["package_location"] . ", Bangladesh</span></p>

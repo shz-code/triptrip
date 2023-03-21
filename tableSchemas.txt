@@ -52,8 +52,8 @@ CREATE TABLE `transactions` (
 	`val_id` VARCHAR(255) NULL DEFAULT NULL,
 	`card_type` VARCHAR(255) NULL DEFAULT NULL,
 	PRIMARY KEY (`id`),
-	FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-	FOREIGN KEY (`package_id`) REFERENCES `packages` (`package_id`)
+	FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)  ON DELETE SET NULL,
+	FOREIGN KEY (`package_id`) REFERENCES `packages` (`package_id`) ON DELETE SET NULL
 )
 ;
 
@@ -66,6 +66,6 @@ CREATE TABLE testimonials(
 	package_id INT,
 	rating FLOAT,
 	date_created DATETIME DEFAULT CURRENT_TIMESTAMP,
-	FOREIGN KEY (user_id) REFERENCES users(id),
-	FOREIGN KEY (package_id) REFERENCES packages(package_id)
+	FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL,
+	FOREIGN KEY (package_id) REFERENCES packages(package_id) ON DELETE SET NULL
 ) 
