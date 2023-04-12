@@ -15,10 +15,11 @@ if (isset($_POST['desc']) && isset($_POST['rating']) && isset($_POST['package_id
     $package = $packageInstance->getPackage($package_id);
     $package = mysqli_fetch_assoc($package);
     $prevRating = $package['package_rating'];
-
-    $newRating = ($prevRating + $rating) / 2;
+    if ($prevRating == 0) {
+        $newRating = $rating;
+    }
+    else $newRating = ($prevRating + $rating) / 2;
     $packageInstance->updateRating($package_id, $newRating);
     echo $testimonialInstance->addTestimonial($desc, $_SESSION['user_id'], $package_id, $rating);
-    var_dump($newRating);
     echo "<script> location.href = '../user_dashboard.php' </script>";
 }
