@@ -22,6 +22,7 @@ class Database
     * Two users purchase a product at the same time not handled.
     * User purchasing same package multiple times not handled.
     * One user can add multiple reviews on same package
+    * Users can write reviews before finishing the tour
 */
 
 class Packages extends Database

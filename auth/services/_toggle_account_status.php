@@ -52,7 +52,7 @@ if (isset($_POST['id'])) {
         <h3> <b>" . $user['full_name'] . "</b> we are sad to inform you that your account has been restricted. <br>
         If you think this is a mistake than contact with us as soon as possible.
         </div>";
-        // smtp_mailer($email, 'Account Verification', $mailHtml);
+        // smtp_mailer($user['email'], 'Account Verification', $mailHtml);
     } else {
         $userInstance->updateAccountStatus($user_id, 1);
     }

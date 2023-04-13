@@ -9,6 +9,12 @@ require './services/phpmailer/src/Exception.php';
 require './services/phpmailer/src/PHPMailer.php';
 require './services/phpmailer/src/SMTP.php';
 
+if (!isset($_SESSION)) {
+    session_start();
+}
+// Get user email from localStorage
+$email = $_SESSION["Email"];
+
 function smtp_mailer($to, $subject, $msg)
 {
     $mail = new PHPMailer();
@@ -85,6 +91,7 @@ if ($code == 200 && !(curl_errno($handle))) {
     <h3>You Purchase of Taka <b>" . $amount . "</b> via <b>" . $card_type . "</b> has been successfully confirmed. <br>
     <a href='http://localhost/triptrip/auth/user_dashboard.php'>Visit your dashboard</a> to check your purchase confirmation.
     </div>";
+    // Undo Comment for sending mail
     // smtp_mailer($email, 'Account Verification', $mailHtml);
 } else {
 

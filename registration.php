@@ -24,9 +24,11 @@ if (isset($_SESSION["logged_in"])) {
         <div class="registration">
             <div class="from-box">
                 <h1 id="title">Sign Up</h1>
+                <!-- Alert notification placeholder -->
                 <div class="notification">
 
                 </div>
+                <!-- Alert notification placeholder -->
                 <form>
                     <div class="input-group">
                         <div class="input-field" id="nameField">
@@ -42,7 +44,7 @@ if (isset($_SESSION["logged_in"])) {
                             <input required type="password" placeholder="Password" name="password" id="password">
                             <i class="fa-solid fa-eye show_password"></i>
                         </div>
-                        <p>Forgot password <a href="#">Click Here!</a></p>
+                        <p style="text-align: center; font-weight:bold">Remember your password carefully!</a></p>
                     </div>
                     <div class="btn-field">
                         <button type="button" id="signupBtn">Sign up</button>
