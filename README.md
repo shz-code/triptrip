@@ -86,7 +86,7 @@ Code editor -
 ![Payment Gateway](./assets/github_images/payment_gateway.jpeg)
 
 # Built With
-![](https://img.shields.io/badge/Code-PHP-informational?style=flat&logo=python&logoColor=white&color=green) The scripting language used
+![](https://img.shields.io/badge/Code-PHP-informational?style=flat&logo=php&logoColor=white&color=green) The scripting language used
 
 
 ![](https://img.shields.io/badge/Database-MySQL-informational?style=flat&logo=mysql&logoColor=white&color=green)
