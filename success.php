@@ -12,8 +12,8 @@ require './services/phpmailer/src/SMTP.php';
 if (!isset($_SESSION)) {
     session_start();
 }
-// Get user email from localStorage
-$email = $_SESSION["Email"];
+// Get user email from session if available
+$email = isset($_SESSION['Email']) ? $_SESSION['Email'] : null;
 
 function smtp_mailer($to, $subject, $msg)
 {
@@ -23,13 +23,15 @@ function smtp_mailer($to, $subject, $msg)
         $mail->isSMTP(); //Send using SMTP
         $mail->Host = 'smtp.gmail.com'; //Set the SMTP server to send through
         $mail->SMTPAuth = true; //Enable SMTP authentication
-        $mail->Username = ''; //SMTP username
-        $mail->Password = ''; //SMTP password
+        $mail->Username = getenv('SMTP_USERNAME'); //SMTP username
+        $mail->Password = getenv('SMTP_PASSWORD'); //SMTP password
         $mail->SMTPSecure = 'tls'; //Enable  TLS encryption
         $mail->Port = 587; //TCP port to connect to
+        $mail->SMTPDebug = 0; // Set to 2 for verbose SMTP debug output in error_log
+        $mail->Debugoutput = 'error_log';
 
         //Recipients
-        $mail->setFrom('');
+        $mail->setFrom(getenv('SMTP_USERNAME'));
         $mail->addAddress($to); //Add a recipient
 
         //Content
@@ -39,17 +41,20 @@ function smtp_mailer($to, $subject, $msg)
 
         if ($mail->send())
             null;
-        else
+        else {
+            error_log('[smtp_mailer] Send failed: ' . $mail->ErrorInfo);
             die(header("HTTP/1.0 500 Internal Server Error Email"));
+        }
     } catch (Exception $e) {
+        error_log('[smtp_mailer] Exception: ' . $e->getMessage());
         die(header("HTTP/1.0 500 Internal Server Error Email"));
     }
 }
 
 
 $val_id = urlencode($_POST['val_id']);
-$store_id = urlencode("rooki64087f61151b1");
-$store_passwd = urlencode("rooki64087f61151b1@ssl");
+$store_id = urlencode(getenv('SSLCOMMERZ_STORE_ID'));
+$store_passwd = urlencode(getenv('SSLCOMMERZ_STORE_PASSWD'));
 $requested_url = ("https://sandbox.sslcommerz.com/validator/api/validationserverAPI.php?val_id=" . $val_id . "&store_id=" . $store_id . "&store_passwd=" . $store_passwd . "&v=1&format=json");
 
 $handle = curl_init();
@@ -76,7 +81,7 @@ if ($code == 200 && !(curl_errno($handle))) {
     $card_type = $result->card_type;
 
     # API AUTHENTICATION
-    $user_id =  $result->value_a;
+    $user_id = $result->value_a;
     $package_id = $result->value_b;
 
     $transactionInstance = new Transactions();
@@ -92,7 +97,12 @@ if ($code == 200 && !(curl_errno($handle))) {
     <a href='http://localhost/triptrip/auth/user_dashboard.php'>Visit your dashboard</a> to check your purchase confirmation.
     </div>";
     // Undo Comment for sending mail
-    // smtp_mailer($email, 'Account Verification', $mailHtml);
+    if ($email && getenv('SMTP_USERNAME') && getenv('SMTP_PASSWORD')) {
+        smtp_mailer($email, 'Account Verification', $mailHtml);
+    } else {
+        if (!$email)
+            error_log('[success.php] No session Email set; skipping confirmation email.');
+    }
 } else {
 
     echo "Failed to connect with SSLCOMMERZ";

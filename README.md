@@ -8,11 +8,11 @@ Triptrip is fullstack website that handles management of various tour and travel
 
 ## Key Features
 ### Users
-- User validation added on login and sign up. Username and email fields are unique. User will get mail after completing registration. (**undo smtp_mailer comment**)
+- User validation added on login and sign up. Username and email fields are unique. User will get mail after completing registration when SMTP credentials are set in `.env`.
 
 - Package purchase validation added. One user can not purchase same package twice, can not purchase after package has started and also can not purchase after package capacity is full.
 
-- User will get email after completing purchase. (**undo smtp_mailer comment in *success.php* file**)
+- User will get email after completing purchase when SMTP credentials are set in `.env`.
 
 - User can write review and generate pdf report after purchasing any package and *more*.
 
@@ -51,21 +51,49 @@ Code editor -
 
 - Start Apache and Mysql.
 - Extract downloaded project file
-- Rename the extracted folder to **triptip**.
+- Rename the extracted folder to **triptrip**.
 - Copy the extracted folder to htdocs(XAMPP) or www(Laragon) folder.
 - Create a new database named **triptrip** and create required table. Use the [tableSchemas](./tableSchemas.txt) to create tables.
+
+- Copy `.env.example` to `.env` and fill in your values (see [Environment Variables](#environment-variables) below).
 
 - Open your browser and go to [http://localhost/triptrip](http://localhost/triptrip)
 
 - Go to register and sign up using new user.
-- To make a user admin go to your database -> triptip -> users -> **set *is_admin* to 1**.
+- To make a user admin go to your database -> triptrip -> users -> **set *is_admin* to 1**.
 - Separate dashboards for **admin** and **users**. Use **admin** dashboard to start adding new packages.
+
+## Environment Variables
+
+This project uses a `.env` file in the project root for secrets and environment-specific config. Copy `.env.example` to `.env` and fill in the values:
+
+```env
+APP_URL=http://localhost
+
+SSLCOMMERZ_STORE_ID=your_sslcommerz_store_id
+SSLCOMMERZ_STORE_PASSWD=your_sslcommerz_store_password
+
+SMTP_USERNAME=your_email@gmail.com
+SMTP_PASSWORD=your_gmail_app_password
+```
+
+| Variable | Description |
+|---|---|
+| `APP_URL` | Base URL of the app (no trailing slash), e.g. `http://localhost` |
+| `SSLCOMMERZ_STORE_ID` | Your SSLCommerz sandbox/live store ID |
+| `SSLCOMMERZ_STORE_PASSWD` | Your SSLCommerz store password |
+| `SMTP_USERNAME` | Gmail address used to send emails via PHPMailer |
+| `SMTP_PASSWORD` | Gmail [App Password](https://support.google.com/accounts/answer/185833) (not your account password) |
+
+> `.env` is gitignored and will never be committed. `.env.example` is committed as a template.
+
+**Email sending** is automatically enabled when `SMTP_USERNAME` and `SMTP_PASSWORD` are set. If they are empty, mail steps are silently skipped.
+
 # Please note
 
-- All the SQL codes are written in **dbConnection.php** file.
-- The file structure is modular. You will get components folder containing the common HTML for all pages like head, header, and footer.
-- This project uses **SSL Commerz** sandbox as payment gateway. Change the required code in **_checkout.php** and **success.php** to set up your sandbox. Visit [SSL Commerz](https://developer.sslcommerz.com/) to know more.
-- This project uses **PHPMailer** to send emails to user on various occasions. Change the **$mail->Username** and **$mail->Password** according your mail address to start sending emails. Checkout [PHPMailer](https://github.com/PHPMailer/PHPMailer) to know more.
+- All the SQL codes are written in **_dbConnection.php** file.
+- The file structure is modular. You will get a `components/` folder containing common HTML for all pages (head, header, footer).
+- This project uses **SSLCommerz** sandbox as payment gateway. Set `SSLCOMMERZ_STORE_ID` and `SSLCOMMERZ_STORE_PASSWD` in `.env`. Visit [SSLCommerz](https://developer.sslcommerz.com/) to know more.
 
 ## Screenshots
 - Search for desired package directly from landing page based on location

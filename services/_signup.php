@@ -16,13 +16,15 @@ function smtp_mailer($to, $subject, $msg)
         $mail->isSMTP(); //Send using SMTP
         $mail->Host = 'smtp.gmail.com'; //Set the SMTP server to send through
         $mail->SMTPAuth = true; //Enable SMTP authentication
-        $mail->Username = ''; //SMTP username
-        $mail->Password = ''; //SMTP password
+        $mail->Username = getenv('SMTP_USERNAME'); //SMTP username
+        $mail->Password = getenv('SMTP_PASSWORD'); //SMTP password
         $mail->SMTPSecure = 'tls'; //Enable  TLS encryption
         $mail->Port = 587; //TCP port to connect to
+        $mail->SMTPDebug = 0; // Set to 2 for verbose SMTP debug output in error_log
+        $mail->Debugoutput = 'error_log';
 
         //Recipients
-        $mail->setFrom('');
+        $mail->setFrom(getenv('SMTP_USERNAME'));
         $mail->addAddress($to); //Add a recipient
 
         //Content
@@ -32,9 +34,12 @@ function smtp_mailer($to, $subject, $msg)
 
         if ($mail->send())
             null;
-        else
+        else {
+            error_log('[smtp_mailer] Send failed: ' . $mail->ErrorInfo);
             die(header("HTTP/1.0 500 Internal Server Error Email"));
+        }
     } catch (Exception $e) {
+        error_log('[smtp_mailer] Exception: ' . $e->getMessage());
         die(header("HTTP/1.0 500 Internal Server Error Email"));
     }
 }
@@ -84,7 +89,9 @@ if (isset($_POST['newUser']) && isset($_POST['username']) && isset($_POST['email
         <h3>Welcome $username to triptrip. Travel Bangladesh like never before. <br>
         <a href='http://localhost/triptrip/listing.php'>Check our triptrip recommended packages</a> and start planning for your next trip!
         </div>";
-        // smtp_mailer($email, 'Account Verification', $mailHtml);
+        if (getenv('SMTP_USERNAME') && getenv('SMTP_PASSWORD')) {
+            smtp_mailer($email, 'Account Verification', $mailHtml);
+        }
         echo '200';
     }
 }

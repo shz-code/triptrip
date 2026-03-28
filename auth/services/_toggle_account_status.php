@@ -22,7 +22,7 @@ function smtp_mailer($to, $subject, $msg)
         $mail->Port = 587; //TCP port to connect to
 
         //Recipients
-        $mail->setFrom('');
+        $mail->setFrom(getenv('SMTP_USERNAME'));
         $mail->addAddress($to); //Add a recipient
 
         //Content
@@ -52,7 +52,9 @@ if (isset($_POST['id'])) {
         <h3> <b>" . $user['full_name'] . "</b> we are sad to inform you that your account has been restricted. <br>
         If you think this is a mistake than contact with us as soon as possible.
         </div>";
-        // smtp_mailer($user['email'], 'Account Verification', $mailHtml);
+        if (getenv('SMTP_USERNAME') && getenv('SMTP_PASSWORD')) {
+            smtp_mailer($user['email'], 'Account Restricted', $mailHtml);
+        }
     } else {
         $userInstance->updateAccountStatus($user_id, 1);
     }

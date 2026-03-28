@@ -1,4 +1,23 @@
 <?php
+// Load .env file from project root
+(function () {
+    $envFile = __DIR__ . '/../.env';
+    if (!file_exists($envFile))
+        return;
+    $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        if (str_starts_with(trim($line), '#'))
+            continue;
+        if (strpos($line, '=') !== false) {
+            [$key, $value] = explode('=', $line, 2);
+            $key = trim($key);
+            $value = trim($value);
+            putenv("$key=$value");
+            $_ENV[$key] = $value;
+        }
+    }
+})();
+
 class Database
 {
     private $db_host = "localhost";
@@ -248,7 +267,7 @@ class Users extends Database
         $this->conn->close();
         return $result->num_rows;
     }
-    public function updateUser($user_id, $email, $phone, $name, $address,)
+    public function updateUser($user_id, $email, $phone, $name, $address, )
     {
         $this->connect();
         $sql = "UPDATE users 
@@ -357,7 +376,7 @@ class Transactions extends Database
     public function getRangedTransitions($days)
     {
         $this->connect();
-        $sql =  "SELECT * 
+        $sql = "SELECT * 
                 FROM transactions INNER JOIN  users ON
                 transactions.user_id = users.id 
                 INNER JOIN  packages ON

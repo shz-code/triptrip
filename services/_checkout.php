@@ -16,14 +16,15 @@ $package = mysqli_fetch_assoc($res);
 
 /* PHP */
 $post_data = array();
-$post_data['store_id'] = "rooki64087f61151b1";
-$post_data['store_passwd'] = "rooki64087f61151b1@ssl";
+$post_data['store_id'] = getenv('SSLCOMMERZ_STORE_ID');
+$post_data['store_passwd'] = getenv('SSLCOMMERZ_STORE_PASSWD');
 $post_data['total_amount'] = $package['package_price'];
 $post_data['currency'] = "BDT";
 $post_data['tran_id'] = "SSLCZ_TEST_" . uniqid();
-$post_data['success_url'] = "http://localhost/triptrip/success.php";
-$post_data['fail_url'] = "http://localhost/triptrip/fail.php";
-$post_data['cancel_url'] = "http://localhost/new_sslcz_gw/cancel.php";
+$base_url = getenv('APP_URL');
+$post_data['success_url'] = $base_url . "/triptrip/success.php";
+$post_data['fail_url'] = $base_url . "/triptrip/fail.php";
+$post_data['cancel_url'] = $base_url . "/triptrip/fail.php";
 # $post_data['multi_card_name'] = "mastercard,visacard,amexcard";  # DISABLE TO DISPLAY ALL AVAILABLE
 
 # EMI INFO
@@ -65,7 +66,7 @@ $post_data['discount_amount'] = "0";
 $post_data['convenience_fee'] = "0";
 
 # REQUEST SEND TO SSLCOMMERZ
-$direct_api_url = "https://sandbox.sslcommerz.com/gwprocess/v3/api.php";
+$direct_api_url = "https://sandbox.sslcommerz.com/gwprocess/v4/api.php";
 
 $handle = curl_init();
 curl_setopt($handle, CURLOPT_URL, $direct_api_url);
@@ -100,5 +101,7 @@ if (isset($sslcz['GatewayPageURL']) && $sslcz['GatewayPageURL'] != "") {
     # header("Location: ". $sslcz['GatewayPageURL']);
     exit;
 } else {
-    echo "JSON Data parsing error!";
+    $statusMsg = $sslcz['failedreason'] ?? ($sslcz['status'] ?? 'Unknown error');
+    error_log('[SSLCommerz] GatewayPageURL missing. Status: ' . $statusMsg . ' | Full response: ' . $sslcommerzResponse);
+    echo "JSON Data parsing error! Reason: " . htmlspecialchars($sslcommerzResponse);
 }
